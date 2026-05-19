@@ -1,6 +1,8 @@
-{ lib, config, ... }:
-
-let
+{
+  lib,
+  config,
+  ...
+}: let
   cfg = config.custom-modules.editors.nvf;
 in {
   options.custom-modules.editors.nvf = {
@@ -27,7 +29,7 @@ in {
           # 1. Enable and configure the built-in theme
           theme = {
             enable = true;
-            name = "catppuccin";  # Options: catppuccin, gruvbox, rose-pine, onedark, etc.
+            name = "catppuccin"; # Options: catppuccin, gruvbox, rose-pine, onedark, etc.
             style = "macchiato";
           };
 
@@ -43,17 +45,28 @@ in {
             theme = "auto";
           };
 
-
           lsp = {
             enable = true;
+            formatOnSave = true; # Optional: auto-formats files when saving
+            trouble.enable = true; # Optional: diagnostic split window
           };
 
-          autocomplete.nvim-cmp.enable = true;
+          autocomplete.nvim-cmp = {
+            enable = true;
+
+            # Enables menu sources
+            sources = {
+              buffer = "[Buffer]"; # Suggests words from your open file
+              path = "[Path]"; # Suggests file system paths as you type
+              nvim_lsp = "[LSP]"; # Suggests functions/variables from your LSP
+              luasnip = "[Snippet]"; # Suggests snippet templates
+            };
+          };
 
           languages = {
             enableTreesitter = true; # Manages real-time syntactic parsing and fast colors
-            enableFormat = true;     # If you want auto-formatting support on save
-            
+            enableFormat = true; # If you want auto-formatting support on save
+
             # C and C++ (Uses clangd compiler engines)
             clang = {
               enable = true;
@@ -120,17 +133,17 @@ in {
           # Plugins
 
           telescope.enable = true;
+
           filetree.neo-tree.enable = true;
           tabline.nvimBufferline.enable = true;
           git.enable = true;
 
-
-          # Vim options 
+          # Vim options
           viAlias = false;
           vimAlias = true;
 
           options.shiftwidth = 2;
-        
+
           # keybind Remaps
 
           # Set leader key
@@ -150,6 +163,30 @@ in {
                 silent = true;
                 desc = "Telescope Live Grep";
               };
+
+              "<C-a>" = {
+                action = ":lua vim.lsp.buf.code_action()<CR>";
+                silent = true;
+                desc = "LSP: trigger code actions";
+              };
+
+              "<leader>aa" = {
+                action = ":Neotree<CR>";
+                silent = true;
+                desc = "Opens Neo-Tree";
+              };
+
+              "<C-d>" = {
+                action = "<C-d>zz";
+                silent = true;
+                desc = "Scrolls down but keeps cursor in center";
+              };
+
+              "<C-b>" = {
+                action = "<C-b>zz";
+                silent = true;
+                desc = "Scrolls up but keeps cursor in center";
+              };
             };
 
             terminal = {
@@ -164,12 +201,7 @@ in {
             };
           };
         };
-
       };
-
-
     };
-
   };
 }
-

@@ -50,11 +50,7 @@ in
     environment.systemPackages = [ pkgs.kitty ];
 
     # Inject Home Manager configuration dynamically for specified users
-    home-manager.users = lib.genAttrs cfg.targetUsers (username: {
-      # This block is evaluated directly by Home Manager
-      home.stateVersion = "25.11"; # Set to your active state version
-    
-      
+    home-manager.users = lib.genAttrs cfg.targetUsers (username: {   
       xdg.configFile."kitty/kitty.conf".text = ''
         # Generated automatically via NixOS Module
         background_opacity ${cfg.transparency}
@@ -69,7 +65,6 @@ in
         scrollback_lines 10000
         enable_audio_bell no
       '';
-
   
     });
   };

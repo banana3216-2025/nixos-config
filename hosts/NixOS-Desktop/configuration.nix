@@ -1,13 +1,15 @@
-{ pkgs, mainUser, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../programs/kitty.nix
-      ../../programs/nvf.nix
-      ../../programs/zsh.nix
-    ];
+  pkgs,
+  mainUser,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../programs/kitty.nix
+    ../../programs/nvf.nix
+    ../../programs/zsh.nix
+  ];
 
   # Bootloader.
   boot.loader.grub.enable = true;
@@ -66,13 +68,23 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${mainUser} = {
     isNormalUser = true;
     description = "user";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
+  };
+
+  programs.git = {
+    enable = true;
+    config = {
+      user = {
+        name = "banana3216-2025";
+        email = "banana.3216.2025@gmail.com";
+      };
+    };
   };
 
   # Install firefox.
@@ -93,7 +105,7 @@
 
   custom-modules.terminals.kitty = {
     enable = true;
-    targetUsers = [ "${mainUser}" "root" ];
+    targetUsers = ["${mainUser}" "root"];
     transparency = "0.85";
   };
 
@@ -102,8 +114,8 @@
   };
 
   custom-modules.shell.zsh = {
-    enable = true; 
-    targetUsers = [ "${mainUser}" "root" ];
+    enable = true;
+    targetUsers = ["${mainUser}" "root"];
   };
 
   # Open ports in the firewall.
@@ -119,5 +131,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.11"; # Did you read the comment?
-
 }
