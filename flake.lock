@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "catppuccin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1779125773,
+        "narHash": "sha256-F34zmAgMQXHwvFb9SpCilX4cAIfF4+KvpzrJqnkNLJE=",
+        "owner": "catppuccin",
+        "repo": "nix",
+        "rev": "86996e2c4ee6a091fddb10de56dd21a1a5972bcb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "nix",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -158,10 +178,12 @@
     },
     "root": {
       "inputs": {
+        "catppuccin": "catppuccin",
         "helium": "helium",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "nvf": "nvf"
+        "nvf": "nvf",
+        "wallpapers": "wallpapers"
       }
     },
     "systems": {
@@ -176,6 +198,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "wallpapers": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1775947286,
+        "narHash": "sha256-sziqpvY++HePR6LzQjhp5b4sZtOqFuF5Q/eRpf1RLps=",
+        "owner": "banana3216-2025",
+        "repo": "wallpapers",
+        "rev": "22429d9992d2cda614dd99da2bb7b3c48329328e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "banana3216-2025",
+        "repo": "wallpapers",
         "type": "github"
       }
     }

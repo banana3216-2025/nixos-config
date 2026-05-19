@@ -14,6 +14,8 @@
     ../../programs/wofi.nix
     ../../programs/thunar.nix
     ../../programs/swww.nix
+    ../../programs/waybar.nix
+    ../../programs/gtk.nix.nix
   ];
 
   # Bootloader.
@@ -136,6 +138,16 @@
   custom-modules.desktop.swww = {
     enable = true;
     autoStartup = true;
+  };
+
+  custom-modules.desktop.waybar = {
+    enable = true;
+    targetUsers = ["${mainUser}"];
+  };
+
+  custom-modules.desktop.gtk = {
+    enable = true;
+    targetUsers = ["${mainUser}"];
   };
 
   # Open ports in the firewall.

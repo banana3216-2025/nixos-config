@@ -133,7 +133,6 @@ in {
           # Plugins
 
           telescope.enable = true;
-
           filetree.neo-tree.enable = true;
           tabline.nvimBufferline.enable = true;
           git.enable = true;
@@ -171,9 +170,9 @@ in {
               };
 
               "<leader>aa" = {
-                action = ":Neotree<CR>";
+                action = ":Neotree toggle<CR>";
                 silent = true;
-                desc = "Opens Neo-Tree";
+                desc = "Toggles Neo-Tree";
               };
 
               "<C-d>" = {
