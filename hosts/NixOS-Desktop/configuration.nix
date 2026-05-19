@@ -15,7 +15,7 @@
     ../../programs/thunar.nix
     ../../programs/swww.nix
     ../../programs/waybar.nix
-    ../../programs/gtk.nix.nix
+    ../../programs/gtk.nix
   ];
 
   # Bootloader.
