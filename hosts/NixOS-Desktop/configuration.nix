@@ -6,6 +6,7 @@
       ./hardware-configuration.nix
       ../../programs/kitty.nix
       ../../programs/nvf.nix
+      ../../programs/zsh.nix
     ];
 
   # Bootloader.
@@ -98,6 +99,11 @@
 
   custom-modules.editors.nvf = {
     enable = true;
+  };
+
+  custom-modules.shell.zsh = {
+    enable = true; 
+    targetUsers = [ "${mainUser}" "root" ];
   };
 
   # Open ports in the firewall.
