@@ -9,6 +9,7 @@
     ../../programs/kitty.nix
     ../../programs/nvf.nix
     ../../programs/zsh.nix
+    ../../programs/starship.nix
   ];
 
   # Bootloader.
@@ -114,6 +115,11 @@
   };
 
   custom-modules.shell.zsh = {
+    enable = true;
+    targetUsers = ["${mainUser}" "root"];
+  };
+
+  custom-modules.shell.starship = {
     enable = true;
     targetUsers = ["${mainUser}" "root"];
   };
