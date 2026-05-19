@@ -10,6 +10,7 @@
     ../../programs/nvf.nix
     ../../programs/zsh.nix
     ../../programs/starship.nix
+    ../../programs/yazi.nix
   ];
 
   # Bootloader.
@@ -113,6 +114,8 @@
   custom-modules.editors.nvf = {
     enable = true;
   };
+
+  custom-modules.editors.yazi.enable = true;
 
   custom-modules.shell.zsh = {
     enable = true;
