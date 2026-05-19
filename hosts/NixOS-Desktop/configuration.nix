@@ -11,6 +11,9 @@
     ../../programs/zsh.nix
     ../../programs/starship.nix
     ../../programs/yazi.nix
+    ../../programs/wofi.nix
+    ../../programs/thunar.nix
+    ../../programs/swww.nix
   ];
 
   # Bootloader.
@@ -116,6 +119,7 @@
   };
 
   custom-modules.editors.yazi.enable = true;
+  custom-modules.editors.thunar.enable = true;
 
   custom-modules.shell.zsh = {
     enable = true;
@@ -125,6 +129,13 @@
   custom-modules.shell.starship = {
     enable = true;
     targetUsers = ["${mainUser}" "root"];
+  };
+
+  custom-modules.launchers.wofi.enable = true;
+
+  custom-modules.desktop.swww = {
+    enable = true;
+    autoStartup = true;
   };
 
   # Open ports in the firewall.
