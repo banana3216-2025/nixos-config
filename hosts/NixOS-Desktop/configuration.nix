@@ -1,4 +1,4 @@
-{ config, pkgs, mainUser , ... }:
+{ pkgs, mainUser, ... }:
 
 {
   imports =
@@ -87,6 +87,8 @@
     vim
     vscode
   ];
+
+  programs.helium.enable = true;
 
   custom-modules.terminals.kitty = {
     enable = true;

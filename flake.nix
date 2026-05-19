@@ -13,9 +13,14 @@
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    helium = {
+      url = "github:oxcl/nix-flake-helium-browser"; 
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, nvf, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nvf, helium, ... }@inputs: {
     nixosConfigurations.NixOS-Testing = nixpkgs.lib.nixosSystem {
       specialArgs = { inherit inputs; mainUser = "user"; };
 
@@ -51,6 +56,7 @@
         ./hosts/NixOS-Desktop/configuration.nix
 
         nvf.nixosModules.default
+        inputs.helium.nixosModules.default
         home-manager.nixosModules.home-manager
         ({mainUser, ...}: { 
           home-manager.useGlobalPkgs = true;
