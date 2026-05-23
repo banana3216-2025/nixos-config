@@ -95,6 +95,8 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
 
+          home-manager.backupFileExtension = "backup";
+
           home-manager.extraSpecialArgs = {inherit inputs;};
 
           home-manager.users.${mainUser} = {
@@ -102,6 +104,7 @@
             home.username = "${mainUser}";
             home.homeDirectory = "/home/${mainUser}";
 
+            xdg.configFile.".gtkrc-2.0".enable = false;
             # download wallpapers from github
             home.file."Pictures/Wallpapers".source = inputs.wallpapers;
           };

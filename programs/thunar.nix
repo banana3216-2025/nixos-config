@@ -15,6 +15,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [pkgs.xfce.thunar];
+    environment.systemPackages = [pkgs.thunar];
   };
 }

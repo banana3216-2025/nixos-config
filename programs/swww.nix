@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  mainUser,
   ...
 }: let
   cfg = config.custom-modules.desktop.swww;
@@ -22,7 +23,7 @@ in {
 
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
-      environment.systemPackages = [pkgs.swww];
+      environment.systemPackages = [pkgs.awww];
     })
 
     (lib.mkIf cfg.autoStartup {
@@ -30,9 +31,9 @@ in {
         description = "swww wallpaper daemon";
         wantedBy = ["multi-user.target"];
         serviceConfig = {
-          ExecStart = "${pkgs.swww}/bin/swww-daemon";
+          ExecStart = "${pkgs.awww}/bin/awww-daemon";
           Restart = "on-failure";
-          User = "root";
+          User = "${mainUser}";
         };
       };
     })
