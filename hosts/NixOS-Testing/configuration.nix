@@ -1,12 +1,15 @@
-{ config, pkgs, mainUser , ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../programs/kitty.nix
-      ../../programs/nixvim.nix
-    ];
+  config,
+  pkgs,
+  mainUser,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../programs/kitty.nix
+    ../../programs/nixvim.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -64,16 +67,16 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${mainUser} = {
     isNormalUser = true;
     description = "user";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [
       kdePackages.kate
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
@@ -92,13 +95,13 @@
 
   custom-modules.terminals.kitty = {
     enable = true;
-    targetUsers = [ "${mainUser}" "root" ];
+    targetUsers = ["${mainUser}" "root"];
     transparency = "0.85";
   };
 
   custom-modules.editors.nixvim = {
     enable = true;
-    targetUsers = [ "${mainUser}" "root" ];
+    targetUsers = ["${mainUser}" "root"];
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -126,6 +129,5 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.11"; # Did you read the comment?
-
+  system.stateVersion = "26.05"; # Did you read the comment?
 }

@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.custom-modules.desktop.hyprland;
@@ -12,8 +13,8 @@ in {
       description = "Enable the hyprland window manager";
     };
 
-    targetUsers = {
-      type = lib.listOf lib.types.str;
+    targetUsers = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
       default = ["desktopUser"];
       description = "Users to apply hyprland to";
     };
@@ -21,6 +22,19 @@ in {
 
   config = lib.mkIf cfg.enable {
     programs.hyprland.enable = true;
+
+    services.dbus.enable = true;
+
+    xdg.portal = {
+      enable = true;
+      extraPortals = [pkgs.xdg-desktop-portal-hyprland];
+    };
+
+    environment.sessionVariables = {
+      XDG_CURRENT_DESKTOP = "Hyprland";
+      XDG_SESSION_TYPE = "wayland";
+      XDG_SESSION_DESKTOP = "Hyprland";
+    };
 
     home-manager.users = lib.genAttrs cfg.targetUsers (username: {
       wayland.windowManager.hyprland = {
@@ -30,24 +44,12 @@ in {
 
           # 1. Variables (Nix variables for reuse)
           "$mainMod" = "SUPER";
-          "$terminal" = "kitty";
+          "$terminal" = "konsole";
           # "$menu" = "wofi --show drun";
 
           exec-once = [
-            "dbus-update-activation-environment --systemd --all"
             #"$BAR"
             #"$WALLPAPER"
-            "hyprctl setcursor Bibata-Modern-Classic 24"
-            "gsettings set org.gnome.desktop.interface cursor-size 24"
-            "gsettings set org.gnome.desktop.interface cursor-theme 'Bibata-Modern-Classic'"
-            # Execute configuration setters on Hyprland launch
-            "exec-once = gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'"
-            "exec-once = gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
-
-            # Set environment variables for the compositor pipeline
-            "env = XDG_CURRENT_DESKTOP,Hyprland"
-            "env = XDG_SESSION_TYPE,wayland"
-            "env = XDG_SESSION_DESKTOP,Hyprland"
           ];
 
           # 4. Input Configuration

@@ -1,11 +1,11 @@
 {
-  description = "A very basic flake";
+  description = "A multi host nix flake with hyprland, NVF(nvim), helium browser, and wallpapers";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -23,6 +23,11 @@
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    #hyprland = {
+    #url = "github:hyprwm/Hyprland";
+    #inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     wallpapers.url = "github:banana3216-2025/wallpapers";
     wallpapers.flake = false;
@@ -54,13 +59,13 @@
           home-manager.useUserPackages = true;
 
           home-manager.users.${mainUser} = {
-            home.stateVersion = "25.11";
+            home.stateVersion = "26.05";
             home.username = "${mainUser}";
             home.homeDirectory = "/home/${mainUser}";
           };
 
           home-manager.users.root = {
-            home.stateVersion = "25.11";
+            home.stateVersion = "26.05";
             home.username = "root";
             home.homeDirectory = "/root";
           };
@@ -73,6 +78,8 @@
         inherit inputs;
         mainUser = "a";
       };
+
+      system = "x86_64-linux";
 
       modules = [
         ./hosts/NixOS-Desktop/configuration.nix
@@ -91,7 +98,7 @@
           home-manager.extraSpecialArgs = {inherit inputs;};
 
           home-manager.users.${mainUser} = {
-            home.stateVersion = "25.11";
+            home.stateVersion = "26.05";
             home.username = "${mainUser}";
             home.homeDirectory = "/home/${mainUser}";
 
@@ -100,7 +107,7 @@
           };
 
           home-manager.users.root = {
-            home.stateVersion = "25.11";
+            home.stateVersion = "26.05";
             home.username = "root";
             home.homeDirectory = "/root";
           };

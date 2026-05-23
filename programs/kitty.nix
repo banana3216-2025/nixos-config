@@ -52,18 +52,18 @@ in {
     # Inject Home Manager configuration dynamically for specified users
     home-manager.users = lib.genAttrs cfg.targetUsers (username: {
       xdg.configFile."kitty/kitty.conf".text = ''
-               # Generated automatically via NixOS Module
-               background_opacity ${cfg.transparency}
+        # Generated automatically via NixOS Module
+        background_opacity ${cfg.transparency}
 
         copy_on_select clipboard
         confirm_os_window_close 0
 
-               # Font Configuration
-               font_family      ${cfg.font.family}
-               font_size        ${toString cfg.font.size}
+        # Font Configuration
+        font_family      ${cfg.font.family}
+        font_size        ${toString cfg.font.size}
 
-               scrollback_lines 10000
-               enable_audio_bell no
+        scrollback_lines 10000
+        enable_audio_bell no
       '';
     });
   };
