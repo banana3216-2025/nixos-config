@@ -34,6 +34,13 @@
     "nvidia-drm.fbdev=1"
   ];
 
+  boot.initrd.kernelModules = [
+    "nvidia"
+    "nvidia_modeset"
+    "nvidia_uvm"
+    "nvidia_drm"
+  ];
+
   boot.extraModprobeConfig = ''
     options nvidia NVreg_RegistryDwords="PowerMizerEnable=0x1; PerfLevelSrc=0x2222; PowerMizerDefaultAC=0x1"
   '';
@@ -42,7 +49,7 @@
     GBM_BACKEND = "nvidia-drm";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     NIXOS_OZONE_WL = "1";
-    AQ_NO_MODIFIERS = "1";
+    #AQ_NO_MODIFIERS = "1";
   };
 
   services.xserver.videoDrivers = ["nvidia"];
