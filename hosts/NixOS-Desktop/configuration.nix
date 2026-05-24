@@ -161,29 +161,18 @@
     transparency = "0.85";
   };
 
-  custom-modules.editors.nvf = {
-    enable = true;
-  };
+  custom-modules.editors.nvf.enable = true;
 
   custom-modules.editors.yazi.enable = true;
   custom-modules.editors.thunar.enable = true;
 
-  custom-modules.shell.zsh = {
-    enable = true;
-    targetUsers = ["${mainUser}" "root"];
-  };
-
-  custom-modules.shell.starship = {
-    enable = true;
-    targetUsers = ["${mainUser}" "root"];
-  };
+  custom-modules.shell.zsh.enable = true;
+  custom-modules.shell.zsh.targetUsers = ["${mainUser}" "root"];
+  custom-modules.shell.starship.enable = true;
+  custom-modules.shell.starship.targetUsers = ["${mainUser}" "root"];
 
   custom-modules.launchers.wofi.enable = true;
-
-  custom-modules.desktop.swww = {
-    enable = true;
-    autoStartup = true;
-  };
+  custom-modules.desktop.swww.enable = true;
 
   custom-modules.desktop.waybar = {
     enable = true;
