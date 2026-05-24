@@ -39,9 +39,7 @@ in {
         enable = true;
 
         extraConfig = builtins.readFile (
-          ../hosts
-          + "/${config.networking.hostName}/program-data/
-          hyprland.lua"
+          ../hosts + "/${config.networking.hostName}/program-data/hyprland.lua"
         );
       };
     });
