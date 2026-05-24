@@ -1,6 +1,7 @@
 {
   pkgs,
   mainUser,
+  config,
   ...
 }: {
   imports = [
@@ -33,8 +34,11 @@
     "nvidia-drm.fbdev=1"
   ];
 
-  hardware.opengl = {
-    enable = true;
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    open = false;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   hardware.graphics = {
