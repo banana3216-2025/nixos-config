@@ -139,7 +139,7 @@ in {
                   border_size = 1,
 
                   col = {
-                      active_border   = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 },
+                      active_border   = { colors = {"rgba(ffffffee)", "rgba(ffffffee)"}, angle = 45 },
                       inactive_border = "rgba(595959aa)",
                   },
 
@@ -153,7 +153,7 @@ in {
               },
 
               decoration = {
-                  rounding       = 10,
+                  rounding       = 0,
                   rounding_power = 2,
 
                   -- Change transparency of focused and unfocused windows

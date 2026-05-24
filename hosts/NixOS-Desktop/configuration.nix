@@ -27,6 +27,26 @@
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Support for nvidia graphics cards
+  boot.kernelParams = [
+    "nvidia-drm.modeset=1"
+    "nvidia-drm.fbdev=1"
+  ];
+
+  hardware.opengl = {
+    enable = true;
+  };
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    extraPackages = with pkgs; [
+      vulkan-loader
+      vulkan-validation-layers
+      vulkan-extension-layer
+    ];
+  };
+
   networking.hostName = "NixOS-Desktop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 

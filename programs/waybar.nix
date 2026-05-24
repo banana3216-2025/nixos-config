@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }: let
   cfg = config.custom-modules.desktop.waybar;
@@ -33,14 +32,12 @@ in {
             * {
               border: none;
               border-radius: 0;
-              font-family: Inter Light;
-              font-size: 16px;
+              font-family: "JetBrainsMono NF", "Symbols Nerd Font", sans-serif;
+              font-size: 12px;
               min-height: 0;
             }
             window#waybar {
-              background-color: #3d3540;
-              border-bottom: 2px dashed #a678d3;
-              border-top: 2px dashed #a678d3;
+              background: none;
               padding-top: 5px;
               color: #a678d3;
               transition-property: background-color;
@@ -100,9 +97,11 @@ in {
               border-left: 2px dashed #a678d3;
             }
             #tray {
+              margin: 10px;
+
               padding-left: 8px;
               padding-right: 8px;
-              min-width: 40px;
+              min-width: 20px;
               border-left: 2px dashed #a678d3;
               font-size: 20px;
             }
@@ -123,39 +122,38 @@ in {
               from { background-position: -33.941125497px 0; }
               to { background-position: 0 0; }
             }
-          ''; # CHANGED: Wrapped the CSS code in multi-line string delimiters ('' ... '')
+          '';
           settings = {
             mainBar = {
-              layer = "top"; # CHANGED: Added quotes around string values
-              position = "top"; # CHANGED: Added quotes around string values
+              layer = "top";
+              position = "top";
               height = 32;
-              modules-left = ["hyprland/workspaces"]; # CHANGED: Added quotes around string values
+              modules-left = ["hyprland/workspaces"];
               modules-center = ["clock"];
-              modules-right = ["network" "battery" "cpu" "memory" "tray"]; # CHANGED: Fixed array syntax (spaces, not commas)
+              modules-right = ["network" "battery" "cpu" "memory" "tray"];
               "hyprland/workspaces" = {
-                # CHANGED: Quoted attribute name containing a slash
                 disable-scroll = true;
                 all-outputs = true;
               };
               clock = {
-                format = "{:%H:%M}"; # CHANGED: Added quotes around string values
+                format = "{:%H:%M}";
                 tooltip-format = "{:%A, %d %B %Y}";
               };
               network = {
-                format-wifi = " {signalStrength}%";
+                format-wifi = "Strength: {signalStrength}%";
                 format-ethernet = "Connected";
-                format-disconnected = " Offline";
+                format-disconnected = "Offline";
               };
               battery = {
                 format = "{capacity}%";
-                format-charging = " {capacity}%";
-                format-full = " {capacity}%";
+                format-charging = "Charging; {capacity}%";
+                format-full = "Full; {capacity}%";
               };
               cpu = {
-                format = " {usage}%";
+                format = "CPU: {usage}%";
               };
               memory = {
-                format = " {used}MB";
+                format = " {used}GB";
               };
               tray = {
                 spacing = 10;
