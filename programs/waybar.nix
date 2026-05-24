@@ -16,11 +16,6 @@ in {
       default = ["desktopUser"];
       description = "Users to add waybar to (you really should just add to the main user)";
     };
-    autoStartup = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Add waybar to startup";
-    };
   };
 
   config = lib.mkMerge [
@@ -161,10 +156,11 @@ in {
             };
           };
         };
+
+        environment.sessionVariables = {
+          BAR = "waybar";
+        };
       });
-    })
-    (lib.mkIf cfg.autoStartup {
-      # You can populate this later depending on your Display Manager or Compositor
     })
   ];
 }
