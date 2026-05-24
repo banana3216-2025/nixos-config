@@ -156,11 +156,11 @@ in {
             };
           };
         };
-
-        environment.sessionVariables = {
-          BAR = "waybar";
-        };
       });
+
+      environment.sessionVariables = {
+        BAR = "waybar";
+      };
     })
   ];
 }
