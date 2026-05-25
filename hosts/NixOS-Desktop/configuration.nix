@@ -125,6 +125,10 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     git
+    gh
+    fzf
+    fastfetch
+    btop
     vim
     vscode
   ];
