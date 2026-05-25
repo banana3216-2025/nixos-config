@@ -49,6 +49,11 @@ in {
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [pkgs.kitty];
 
+    xdg.terminal-exec = {
+      enable = true;
+      settings.default = ["kitty.desktop"];
+    };
+
     # Inject Home Manager configuration dynamically for specified users
     home-manager.users = lib.genAttrs cfg.targetUsers (username: {
       xdg.configFile."kitty/kitty.conf".text = ''
