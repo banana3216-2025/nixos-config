@@ -18,6 +18,7 @@
     ../../programs/waybar.nix
     ../../programs/gtk.nix
     ../../programs/hyprland.nix
+    ../../programs/sober.nix
   ];
 
   # Bootloader.
@@ -170,6 +171,8 @@
     enable = true;
     targetUsers = ["${mainUser}"];
   };
+
+  custom-modules.games.sober.enable = true;
 
   # This value determines the NixOS release from which the default
   system.stateVersion = "26.05";

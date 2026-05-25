@@ -24,10 +24,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    #hyprland = {
-    #url = "github:hyprwm/Hyprland";
-    #inputs.nixpkgs.follows = "nixpkgs";
-    #};
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     wallpapers.url = "github:banana3216-2025/wallpapers";
     wallpapers.flake = false;
@@ -40,6 +40,7 @@
     nvf,
     helium,
     catppuccin,
+    nix-flatpak,
     wallpapers,
     ...
   } @ inputs: {
@@ -86,6 +87,7 @@
 
         nvf.nixosModules.default
         inputs.helium.nixosModules.default
+        nix-flatpak.nixosModules.nix-flatpak
         home-manager.nixosModules.home-manager
         ({
           mainUser,
