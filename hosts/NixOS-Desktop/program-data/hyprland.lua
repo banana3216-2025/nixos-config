@@ -32,9 +32,11 @@ hl.monitor({
 ---------------------
 
 -- Set programs that you use
-local terminal    = "kitty"
-local fileManager = "yazi"
-local menu        = "wofi --show drun"
+local terminal          = "kitty"
+local fileManager       = "yazi"
+local menu              = "wofi --show drun"
+local bar               = "$BAR"
+local wallpaper_manager = "$WALLPAPER_MANAGER"
 
 
 -------------------
@@ -50,6 +52,10 @@ local menu        = "wofi --show drun"
 --   hl.exec_cmd(terminal)
 -- end)
 
+hl.on("hyprland.start", function() 
+    hl.exec_cmd(wallpaper_manager);
+    hl.exec_cmd(bar);
+end)
 
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
