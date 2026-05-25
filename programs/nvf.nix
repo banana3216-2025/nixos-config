@@ -11,15 +11,11 @@ in {
       default = false;
       description = "Enable the nvf editor and settings for users.";
     };
-
-    theme = lib.mkOption {
-      type = lib.types.str;
-      default = "onedark";
-      description = "Set the color scheme for nvf.";
-    };
   };
 
   config = lib.mkIf cfg.enable {
+    environment.sessionVariables = {EDITOR = "nvim";};
+
     programs.nvf = {
       enable = true;
       # Your settings need to go into the settings attribute set
