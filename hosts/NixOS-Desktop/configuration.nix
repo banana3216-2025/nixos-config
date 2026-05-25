@@ -130,6 +130,8 @@
     fastfetch
     btop
     vim
+    direnv
+    nix-direnv
     vscode
   ];
 
