@@ -16,14 +16,15 @@ in {
   config = lib.mkIf cfg.enable {
     services.flatpak = {
       enable = true;
-      remotes = [
-        {
-          name = "flathub";
-          location = "https://flathub.org";
-        }
-      ];
 
-      packages = ["flathub:org.vinegarhq.Sober"];
+      packages = [
+        "org.vinegarhq.Sober"
+      ];
     };
+
+    environment.profiles = [
+      "$HOME/.local/share/flatpak/exports"
+      "/var/lib/flatpak/exports"
+    ];
   };
 }
