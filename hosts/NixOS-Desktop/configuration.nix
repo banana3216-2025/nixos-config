@@ -2,6 +2,7 @@
   pkgs,
   mainUser,
   config,
+  inputs,
   ...
 }: {
   imports = [
@@ -103,6 +104,11 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
+  nix.settings = {
+    max-jobs = 4; # Scale this based on your RAM (e.g., 1 or 2 max)
+    cores = 6; # Limit the number of cores used per build job
+  };
+
   users.users.${mainUser} = {
     isNormalUser = true;
     description = "user";
@@ -134,6 +140,8 @@
     direnv
     nix-direnv
     vscode
+
+    inputs.quickshell.packages.${pkgs.system}.default
   ];
 
   programs.helium.enable = true;

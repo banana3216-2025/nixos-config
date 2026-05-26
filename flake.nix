@@ -24,6 +24,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 
     wallpapers.url = "github:banana3216-2025/wallpapers";
@@ -37,6 +42,7 @@
     nvf,
     helium,
     catppuccin,
+    quickshell,
     nix-flatpak,
     wallpapers,
     ...
