@@ -95,8 +95,14 @@
         ({
           mainUser,
           inputs,
+          pkgs,
           ...
         }: {
+          fonts.packages = with pkgs; [
+            nerd-fonts.symbols-only # Delivers standalone font symbols system-wide
+            nerd-fonts.jetbrains-mono # Example of complete patched core typography
+          ];
+
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
 
