@@ -219,6 +219,12 @@ in {
                 silent = true;
                 desc = "Scrolls up but keeps cursor in center";
               };
+
+              "qs" = {
+                action = ":w | bp | bd #<CR>";
+                silent = true;
+                desc = "Saves and cloes the buffer tab(closes tab on tob bar)";
+              };
             };
 
             terminal = {
