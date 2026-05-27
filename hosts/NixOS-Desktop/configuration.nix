@@ -180,7 +180,17 @@
     targetUsers = ["${mainUser}"];
   };
 
-  custom-modules.games.sober.enable = true;
+  specialisation = {
+    gamer-mode = {
+      inheritParentConfig = true;
+      configuration = {
+        custom-modules.games.sober.enable = true;
+
+        # Changing bootloader label for clarity
+        system.nixos.tags = ["gamer-mode"];
+      };
+    };
+  };
 
   # This value determines the NixOS release from which the default
   system.stateVersion = "26.05";
