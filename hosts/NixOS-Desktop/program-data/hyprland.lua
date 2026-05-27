@@ -316,6 +316,17 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = tr
 ---- WINDOWS AND WORKSPACES ----
 --------------------------------
 
+hl.workspace_rule({ workspace = "1", monitor = "DP-1" })
+hl.workspace_rule({ workspace = "2", monitor = "DP-1"})
+hl.workspace_rule({ workspace = "3", monitor = "HDMI-A-1"})
+hl.workspace_rule({ workspace = "4", monitor = "HDMI-A-1"})
+hl.workspace_rule({ workspace = "5", monitor = "DP-1" })
+hl.workspace_rule({ workspace = "6", monitor = "DP-1"})
+hl.workspace_rule({ workspace = "7", monitor = "HDMI-A-1"})
+hl.workspace_rule({ workspace = "8", monitor = "HDMI-A-1"})
+hl.workspace_rule({ workspace = "9", monitor = "DP-1" })
+hl.workspace_rule({ workspace = "10", monitor = "HDMI-A-1"})
+
 -- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 -- and https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 

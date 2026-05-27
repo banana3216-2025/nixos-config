@@ -101,7 +101,7 @@ ShellRoot {
                             Layout.margins: 6 // Padding inside the widget container
 
                             Repeater {
-                                model: [1, 2, 3, 4, 5]
+                                model: [1, 2, 3, 4, 5, 6, 7, 8]
 
                                 delegate: Rectangle {
                                     id: workspaceButton
