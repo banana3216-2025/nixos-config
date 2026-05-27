@@ -99,8 +99,8 @@
           ...
         }: {
           fonts.packages = with pkgs; [
-            nerd-fonts.symbols-only # Delivers standalone font symbols system-wide
-            nerd-fonts.jetbrains-mono # Example of complete patched core typography
+            nerd-fonts.symbols-only
+            nerd-fonts.jetbrains-mono
           ];
 
           home-manager.useGlobalPkgs = true;
