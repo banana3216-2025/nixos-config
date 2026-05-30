@@ -113,20 +113,33 @@ in {
             };
           };
 
+          debugger = {
+            nvim-dap = {
+              enable = true;
+              ui.enable = true;
+            };
+          };
+
           languages = {
             enableTreesitter = true;
             enableFormat = true;
+            enableDAP = true;
 
             clang = {
               enable = true;
+
               lsp.enable = true;
+              lsp.servers = ["clangd"];
+
               treesitter.enable = true;
+              dap.enable = true;
             };
 
             python = {
               enable = true;
               lsp.enable = true;
               treesitter.enable = true;
+              dap.enable = true;
             };
 
             typescript = {
@@ -168,8 +181,65 @@ in {
               enable = true;
               lsp.enable = true;
               treesitter.enable = true;
+              dap.enable = true;
+            };
+
+            go = {
+              enable = true;
+              lsp.enable = true;
+              treesitter.enable = true;
+              dap.enable = true;
             };
           };
+
+          extraPackages = with pkgs; [
+            # C / C++ / Rust
+            lldb_19
+            # Python
+            python3Packages.debugpy
+            # JS / TS
+            vscode-js-debug # JavaScript/TypeScript Debugger
+            # Go
+            delve # Go Debugger
+          ];
+
+          luaConfigRC.dap-custom-adapters = ''
+            local dap = require('dap')
+
+            -- 🟢 JavaScript / TypeScript Adapter Routing
+            -- This explicitly hooks NVF up to the package path provided by vscode-js-debug
+            if not dap.adapters["pwa-node"] then
+              dap.adapters["pwa-node"] = {
+                type = "server",
+                host = "localhost",
+                port = "''${port}",
+                executable = {
+                  command = "js-debug-adapter", -- Provided cleanly by pkgs.vscode-js-debug
+                  args = { "''${port}" },
+                }
+              }
+            end
+
+            -- 🟢 Lightweight, Native Lua Environment Debugging Setup
+            -- Bypasses node-based debugger binaries entirely
+            dap.adapters.nlua = function(callback, config)
+              callback({ type = 'server', host = config.host or "127.0.0.1", port = config.port or 8086 })
+            end
+
+            dap.configurations.lua = {
+              {
+                type = 'nlua',
+                request = 'attach',
+                name = "Attach to running Neovim instance",
+                host = function()
+                  return vim.fn.input('Host: ') or "127.0.0.1"
+                end,
+                port = function()
+                  return tonumber(vim.fn.input('Port [8086]: ')) or 8086
+                end,
+              },
+            }
+          '';
 
           telescope.enable = true;
           filetree.neo-tree.enable = true;
