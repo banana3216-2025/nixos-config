@@ -138,7 +138,7 @@
       system = "x86_64-linux";
 
       modules = [
-        ./hosts/NixOS-Mc/configuration.nix
+        ./hosts/NixOS-Mac/configuration.nix
 
         nvf.nixosModules.default
         inputs.helium.nixosModules.default
