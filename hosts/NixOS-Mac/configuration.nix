@@ -24,7 +24,7 @@
 
   # Bootloader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/nvme0n1";
+  boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
 
   # Use latest kernel.
@@ -111,7 +111,9 @@
   custom-modules.terminals.kitty = {
     enable = true;
     targetUsers = ["${mainUser}" "root"];
+
     transparency = "0.85";
+    font.size = 9;
   };
 
   custom-modules.editors.nvf.enable = true;
