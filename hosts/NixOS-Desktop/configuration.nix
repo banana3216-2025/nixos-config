@@ -186,6 +186,11 @@
       configuration = {
         custom-modules.games.sober.enable = true;
 
+        environment.systemPackages = with pkgs; [
+          steam
+          discord
+        ];
+
         # Changing bootloader label for clarity
         system.nixos.tags = ["gamer-mode"];
       };
