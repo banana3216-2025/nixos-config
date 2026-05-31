@@ -141,7 +141,7 @@
     nix-direnv
     vscode
 
-    inputs.quickshell.packages.${pkgs.system}.default
+    inputs.quickshell.packages.${stdenv.hostPlatform.system}.default
   ];
 
   programs.helium.enable = true;
