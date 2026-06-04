@@ -251,6 +251,7 @@ in {
 
           options.shiftwidth = 2;
           globals.mapleader = " ";
+          options.timeoutlen = 500;
 
           maps = {
             normal = {
@@ -294,6 +295,19 @@ in {
                 action = ":w | bp | bd #<CR>";
                 silent = true;
                 desc = "Saves and cloes the buffer tab(closes tab on tob bar)";
+              };
+
+              "gt" = {
+                action = ":bprev<CR>";
+                silent = true;
+                desc = "moves to the next buffer with tab moving keys";
+              };
+
+              "g<S-t>" = {
+                # g then capital T
+                action = ":bnext<CR>";
+                silent = true;
+                desc = "moves to the next buffer with tab moving keys";
               };
             };
 

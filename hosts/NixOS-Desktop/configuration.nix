@@ -20,6 +20,7 @@
     ../../programs/gtk.nix
     ../../programs/hyprland.nix
     ../../programs/sober.nix
+    ../../programs/tmux.nix
   ];
 
   # Bootloader.
@@ -161,6 +162,8 @@
   custom-modules.shell.zsh.targetUsers = ["${mainUser}" "root"];
   custom-modules.shell.starship.enable = true;
   custom-modules.shell.starship.targetUsers = ["${mainUser}" "root"];
+
+  custom-modules.shell.tmux.enable = true;
 
   custom-modules.launchers.wofi.enable = true;
   custom-modules.desktop.swww.enable = true;

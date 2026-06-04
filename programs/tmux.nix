@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.custom-modules.shell.tmux;
@@ -16,6 +17,13 @@ in {
   config = lib.mkIf cfg.enable {
     programs.tmux = {
       enable = true;
+
+      plugins = with pkgs.tmuxPlugins; [
+        vim-tmux-navigator
+
+        catppuccin
+        prefix-highlight
+      ];
 
       extraConfig = builtins.readFile (
         ../hosts + "/${config.networking.hostName}/program-data/tmux.conf"
