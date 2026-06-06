@@ -153,10 +153,12 @@ ShellRoot {
                         radius: 8
                         margin: 8
 
+
                         Text {
                             id: clockText
                             color: "#cdd6f4"
-                            font.pixelSize: 14
+                            font.pixelSize: 13
+                            font.bold: true
                             anchors.centerIn: parent
 
                             Timer {
@@ -194,7 +196,7 @@ ShellRoot {
                                 Text { 
                                     text: cpuUsage + "%"
                                     color: "#cdd6f4"
-                                    font.pixelSize: 13
+                                    font.pixelSize: 14
                                     font.bold: true
                                 }
                             }
@@ -210,7 +212,7 @@ ShellRoot {
                                 Text { 
                                     text: memUsage + "%"
                                     color: "#cdd6f4"
-                                    font.pixelSize: 13
+                                    font.pixelSize: 14
                                     font.bold: true
                                 }
                             }
