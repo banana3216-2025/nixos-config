@@ -8,6 +8,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+
     ../../programs/kitty.nix
     ../../programs/nvf.nix
     ../../programs/zsh.nix
@@ -21,6 +22,8 @@
     ../../programs/hyprland.nix
     ../../programs/sober.nix
     ../../programs/tmux.nix
+
+    ../../shared/smb-share.nix
   ];
 
   # Bootloader.
@@ -182,6 +185,8 @@
     enable = true;
     targetUsers = ["${mainUser}"];
   };
+
+  custom-modules.tools.my-nas.enable = true;
 
   specialisation = {
     gamer-mode = {
