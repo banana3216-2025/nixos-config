@@ -36,6 +36,7 @@ in {
 
         shellAliases = {
           ls = "ls -alh";
+          clear-history = "/etc/nixos/clear_history.sh";
         };
 
         history = {
