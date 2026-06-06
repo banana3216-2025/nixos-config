@@ -206,7 +206,7 @@ in {
           luaConfigRC.dap-custom-adapters = ''
             local dap = require('dap')
 
-            -- 🟢 JavaScript / TypeScript Adapter Routing
+            -- JavaScript / TypeScript Adapter Routing
             -- This explicitly hooks NVF up to the package path provided by vscode-js-debug
             if not dap.adapters["pwa-node"] then
               dap.adapters["pwa-node"] = {
@@ -220,8 +220,7 @@ in {
               }
             end
 
-            -- 🟢 Lightweight, Native Lua Environment Debugging Setup
-            -- Bypasses node-based debugger binaries entirely
+            -- Lightweight, Native Lua Environment Debugging Setup
             dap.adapters.nlua = function(callback, config)
               callback({ type = 'server', host = config.host or "127.0.0.1", port = config.port or 8086 })
             end
@@ -249,7 +248,33 @@ in {
           viAlias = false;
           vimAlias = true;
 
-          options.shiftwidth = 2;
+          options.shiftwidth = 4;
+          luaConfigRC.filetype-tabs = ''
+            -- Create an autocommand group to prevent duplicate hooks on reload
+            local tab_group = vim.api.nvim_create_augroup("FileTypeTabs", { clear = true })
+
+            vim.api.nvim_create_autocmd("FileType", {
+              group = tab_group,
+              pattern = { "html", "css", "javascript", "typescript", "json", "nix", "yaml" },
+              callback = function()
+                vim.opt_local.tabstop = 2
+                vim.opt_local.softtabstop = 2
+                vim.opt_local.shiftwidth = 2
+              end,
+            })
+
+            -- Optional: Ensure Python, C, Go, or Rust enforce 4 spaces
+            vim.api.nvim_create_autocmd("FileType", {
+              group = tab_group,
+              pattern = { "python", "c", "cpp", "go", "rust" },
+              callback = function()
+                vim.opt_local.tabstop = 4
+                vim.opt_local.softtabstop = 4
+                vim.opt_local.shiftwidth = 4
+              end,
+            })
+          '';
+
           globals.mapleader = " ";
           options.timeoutlen = 500;
 
