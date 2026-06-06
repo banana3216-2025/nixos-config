@@ -89,10 +89,20 @@
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
 
-  # Configure keymap in X11
+  # Configure keyboard layout
   services.xserver.xkb = {
-    layout = "us";
-    variant = "";
+    layout = "us,us";
+    variant = ",dvorak"; # Empty string before the comma keeps the first layout standard
+    options = ""; # shortcut definied in hyprland config
+  };
+
+  console.useXkbConfig = true;
+
+  # set clock format to 24 hours
+  i18n = {
+    extraLocaleSettings = {
+      LC_TIME = "en_DK.UTF-8";
+    };
   };
 
   # Enable sound with pipewire.

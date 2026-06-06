@@ -223,8 +223,8 @@ hl.config({
 
 hl.config({
     input = {
-        kb_layout  = "us",
-        kb_variant = "",
+        kb_layout  = "us,us",
+        kb_variant = ",dvorak",
         kb_model   = "",
         kb_options = "",
         kb_rules   = "",
@@ -258,6 +258,8 @@ hl.device({
 ---------------------
 
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
+
+hl.bind("CTRL + SUPER + ALT + SPACE", hl.dsp.exec_cmd("hyprctl switchxkblayout all next"))
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))

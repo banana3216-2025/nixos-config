@@ -165,13 +165,11 @@ ShellRoot {
                                 repeat: true
                                 triggeredOnStart: true
                                 onTriggered: {
-                                    clockText.text = new Date().toLocaleTimeString(Qt.locale(), "hh:mm:ss AP")
+                                    clockText.text = "Time: " + (new Date().toLocaleTimeString(Qt.locale(), "HH:mm:ss"))
                                 }
                             }
                         }
                     }
-
-                    Item { Layout.fillWidth: true }
 
                     // === RIGHT MODULE: CPU & MEMORY METRICS ===
                     WrapperRectangle {
