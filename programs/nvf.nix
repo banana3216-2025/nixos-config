@@ -133,6 +133,9 @@ in {
 
               treesitter.enable = true;
               dap.enable = true;
+
+              format.enable = true;
+              format.type = ["clang-format"];
             };
 
             python = {
@@ -248,32 +251,33 @@ in {
           viAlias = false;
           vimAlias = true;
 
-          options.shiftwidth = 4;
+          options.shiftwidth = 2;
           luaConfigRC.filetype-tabs = ''
-            -- Create an autocommand group to prevent duplicate hooks on reload
             local tab_group = vim.api.nvim_create_augroup("FileTypeTabs", { clear = true })
 
             vim.api.nvim_create_autocmd("FileType", {
               group = tab_group,
-              pattern = { "html", "css", "javascript", "typescript", "json", "nix", "yaml" },
+              pattern = { "c", "cpp", "python", "go", "rust" },
               callback = function()
-                vim.opt_local.tabstop = 2
-                vim.opt_local.softtabstop = 2
-                vim.opt_local.shiftwidth = 2
-              end,
-            })
-
-            -- Optional: Ensure Python, C, Go, or Rust enforce 4 spaces
-            vim.api.nvim_create_autocmd("FileType", {
-              group = tab_group,
-              pattern = { "python", "c", "cpp", "go", "rust" },
-              callback = function()
-                vim.opt_local.tabstop = 4
-                vim.opt_local.softtabstop = 4
-                vim.opt_local.shiftwidth = 4
+                -- Use a scheduled callback to run AFTER other plugins settle down
+                vim.schedule(function()
+                  vim.opt_local.tabstop = 4
+                  vim.opt_local.softtabstop = 4
+                  vim.opt_local.shiftwidth = 4
+                  vim.opt_local.expandtab = true
+                end)
               end,
             })
           '';
+
+          formatter.conform-nvim.setupOpts = {
+            formatters = {
+              clang-format = {
+                # This appends the exact 4-space argument to the binary command array
+                prepend_args = ["-style={BasedOnStyle: LLVM, IndentWidth: 4, TabWidth: 4}"];
+              };
+            };
+          };
 
           globals.mapleader = " ";
           options.timeoutlen = 500;
