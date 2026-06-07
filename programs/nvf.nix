@@ -17,6 +17,8 @@ in {
   config = lib.mkIf cfg.enable {
     environment.sessionVariables = {EDITOR = "nvim";};
 
+    environment.systemPackages = [pkgs.lazygit];
+
     programs.nvf = {
       enable = true;
 
@@ -248,6 +250,11 @@ in {
           tabline.nvimBufferline.enable = true;
           git.enable = true;
 
+          terminal.toggleterm = {
+            enable = true;
+            lazygit.enable = true;
+          };
+
           viAlias = false;
           vimAlias = true;
 
@@ -337,6 +344,12 @@ in {
                 action = ":bprev<CR>";
                 silent = true;
                 desc = "moves to the next buffer with tab moving keys";
+              };
+
+              "<leader>lg" = {
+                action = "<cmd>lua require('toggleterm.terminal').Terminal:new({ cmd = 'lazygit', hidden = true }):toggle()<CR>";
+                silent = true;
+                desc = "Opens lazygit";
               };
             };
 
