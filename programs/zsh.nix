@@ -35,7 +35,7 @@ in {
         syntaxHighlighting.enable = true;
 
         shellAliases = {
-          ls = "ls -alh";
+          ls = "eza -lh";
           clear-history = "/etc/nixos/clear_history.sh";
         };
 

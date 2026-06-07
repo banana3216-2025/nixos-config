@@ -327,14 +327,14 @@ in {
               };
 
               "gt" = {
-                action = ":bprev<CR>";
+                action = ":bnext<CR>";
                 silent = true;
                 desc = "moves to the next buffer with tab moving keys";
               };
 
               "g<S-t>" = {
                 # g then capital T
-                action = ":bnext<CR>";
+                action = ":bprev<CR>";
                 silent = true;
                 desc = "moves to the next buffer with tab moving keys";
               };

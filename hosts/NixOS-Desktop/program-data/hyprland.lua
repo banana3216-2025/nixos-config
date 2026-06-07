@@ -55,6 +55,7 @@ local wallpaper_manager = "$WALLPAPER_MANAGER"
 hl.on("hyprland.start", function() 
     hl.exec_cmd(wallpaper_manager);
     hl.exec_cmd(bar);
+    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP");
 end)
 
 -------------------------------
@@ -357,6 +358,13 @@ hl.window_rule({
 
     no_focus = true,
 })
+
+-- Make quickshell overlap other windows
+hl.config({
+    layerrule = {
+        "overlay, quickshell"
+    }
+});
 
 -- Layer rules also return a handle.
 -- local overlayLayerRule = hl.layer_rule({

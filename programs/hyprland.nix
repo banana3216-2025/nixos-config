@@ -23,16 +23,22 @@ in {
     programs.hyprland.enable = true;
     services.dbus.enable = true;
 
-    xdg.portal = {
-      enable = true;
-      extraPortals = [pkgs.xdg-desktop-portal-hyprland];
-    };
-
     environment.sessionVariables = {
       XDG_CURRENT_DESKTOP = "Hyprland";
       XDG_SESSION_TYPE = "wayland";
       XDG_SESSION_DESKTOP = "Hyprland";
     };
+
+    xdg.portal = {
+      enable = true;
+      extraPortals = [pkgs.xdg-desktop-portal-hyprland];
+      config.common.default = "*";
+    };
+
+    # Ensure systemd user session handles system-wide environment handoffs
+    systemd.user.extraConfig = ''
+      DefaultEnvironment="XDG_CURRENT_DESKTOP=Hyprland" "WAYLAND_DISPLAY=wayland-1"
+    '';
 
     home-manager.users = lib.genAttrs cfg.targetUsers (username: {
       wayland.windowManager.hyprland = {

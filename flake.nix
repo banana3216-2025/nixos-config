@@ -103,6 +103,13 @@
             nerd-fonts.jetbrains-mono
           ];
 
+          environment.systemPackages = with pkgs; [
+            eza
+            btop
+            git
+            gh
+          ];
+
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
 

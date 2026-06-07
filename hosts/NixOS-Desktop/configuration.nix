@@ -116,6 +116,8 @@
     #jack.enable = true;
   };
 
+  services.dbus.enable = true;
+
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   nix.settings = {
