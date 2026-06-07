@@ -118,6 +118,25 @@ in {
                   icon = " ";
                   color = "info";
                 };
+                NOTE = {
+                  icon = " ";
+                  color = "hint";
+                  alt = ["INFO"];
+                };
+                TEST = {
+                  icon = "⏲ ";
+                  color = "test";
+                  alt = ["TESTING"];
+                };
+                HACK = {
+                  icon = " ";
+                  color = "warning";
+                };
+                WARN = {
+                  icon = " ";
+                  color = "warning";
+                  alt = ["WARNING"];
+                };
               };
             };
           };
