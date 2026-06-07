@@ -99,6 +99,29 @@ in {
             theme = "dashboard";
           };
 
+          notes.todo-comments = {
+            enable = true;
+            setupOpts = {
+              signs = true; # Show icons in the signs column
+              highlight = {
+                before = "";
+                keyword = "wide"; # Highlight styles: "fg", "bg", "wide"
+                after = "fg";
+              };
+              keywords = {
+                FIX = {
+                  icon = " ";
+                  color = "error";
+                  alt = ["FIXME" "BUG"];
+                };
+                TODO = {
+                  icon = " ";
+                  color = "info";
+                };
+              };
+            };
+          };
+
           lsp = {
             enable = true;
             formatOnSave = true;
@@ -120,6 +143,13 @@ in {
               enable = true;
               ui.enable = true;
             };
+          };
+
+          diagnostics.enable = true;
+          diagnostics.config = {
+            virtual_text = true;
+            underline = true;
+            signs = true;
           };
 
           languages = {
