@@ -63,13 +63,15 @@ in {
                     -- SWAPPED: Using legacy symbols to ensure absolute fallback compatibility
                     local b1 = dashboard.button("e", "  New file", "<cmd>ene <BAR> startinsert <CR>")
                     local b2 = dashboard.button("f", "  Find file", "<cmd>Telescope find_files<CR>")
-                    local b3 = dashboard.button("q", "  Exit", "<cmd>qa<CR>")
+                    local b3 = dashboard.button("t", "  Find Notes", "<cmd>TodoTelescope<CR>")
+                    local b4 = dashboard.button("q", "  Exit", "<cmd>qa<CR>")
 
                     b1.opts.hl_shortcut = "Number"
                     b2.opts.hl_shortcut = "Number"
                     b3.opts.hl_shortcut = "Number"
+                    b4.opts.hl_shortcut = "Number"
 
-                    element.val = { b1, b2, b3 }
+                    element.val = { b1, b2, b3, b4 }
                   end
                 end
 

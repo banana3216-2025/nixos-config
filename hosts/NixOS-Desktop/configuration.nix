@@ -27,9 +27,18 @@
   ];
 
   # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/nvme0n1";
-  boot.loader.grub.useOSProber = true;
+  boot.loader = {
+    efi.canTouchEfiVariables = true;
+    efi.efiSysMountPoint = "/boot";
+
+    grub.enable = true;
+    grub.efiSupport = true;
+    grub.devices = ["nodev"]; # needed for modern EFI systems
+    grub.useOSProber = true;
+  };
+
+  # Allow NixOS to read NTFS(windows) file systems
+  boot.supportedFilesystems = ["ntfs"];
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
