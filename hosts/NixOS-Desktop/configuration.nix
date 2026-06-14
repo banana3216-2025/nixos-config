@@ -22,6 +22,7 @@
     ../../programs/hyprland.nix
     ../../programs/sober.nix
     ../../programs/tmux.nix
+    ../../programs/zellij.nix
 
     ../../shared/smb-share.nix
   ];
@@ -31,26 +32,28 @@
     efi.canTouchEfiVariables = true;
     efi.efiSysMountPoint = "/boot";
 
-    grub.enable = true;
-    grub.efiSupport = true;
-    grub.devices = ["nodev"]; # needed for modern EFI systems
+    grub = {
+      enable = true;
+      efiSupport = true;
+      devices = ["nodev"]; # needed for modern EFI systems
 
-    grub.useOSProber = false;
-    extraEntries = ''
-      menuentry "Windows 10" --class windows --class os {
-          insmod part_gpt
-          insmod fat
-          search --no-floppy --fs-uuid --set=root A0FE-8C72
-          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-      }
+      useOSProber = false;
+      extraEntries = ''
+        menuentry "Windows 10" --class windows --class os {
+            insmod part_gpt
+            insmod fat
+            search --no-floppy --fs-uuid --set=root A0FE-8C72
+            chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+        }
 
-      menuentry "Fedora Linux" --class fedora --class os {
-          insmod part_gpt
-          insmod fat
-          search --no-floppy --fs-uuid --set=root A0FE-8C72
-          chainloader /EFI/fedora/grubx64.efi
-      }
-    ''; # add boot entries munually to speed up rebuilds
+        menuentry "Fedora Linux" --class fedora --class os {
+            insmod part_gpt
+            insmod fat
+            search --no-floppy --fs-uuid --set=root A0FE-8C72
+            chainloader /EFI/fedora/grubx64.efi
+        }
+      ''; # add boot entries munually to speed up rebuilds
+    };
   };
 
   # Allow NixOS to read NTFS(windows) file systems
@@ -204,6 +207,8 @@
   custom-modules.shell.starship.targetUsers = ["${mainUser}" "root"];
 
   custom-modules.shell.tmux.enable = true;
+  custom-modules.shell.zellij.enable = true;
+  custom-modules.shell.zellij.targetUsers = ["${mainUser}" "root"];
 
   custom-modules.launchers.wofi.enable = true;
   custom-modules.desktop.swww.enable = true;
