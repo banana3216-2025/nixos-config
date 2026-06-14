@@ -34,7 +34,23 @@
     grub.enable = true;
     grub.efiSupport = true;
     grub.devices = ["nodev"]; # needed for modern EFI systems
-    grub.useOSProber = true;
+
+    grub.useOSProber = false;
+    extraEntries = ''
+      menuentry "Windows 10" --class windows --class os {
+          insmod part_gpt
+          insmod fat
+          search --no-floppy --fs-uuid --set=root A0FE-8C72
+          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+      }
+
+      menuentry "Fedora Linux" --class fedora --class os {
+          insmod part_gpt
+          insmod fat
+          search --no-floppy --fs-uuid --set=root A0FE-8C72
+          chainloader /EFI/fedora/grubx64.efi
+      }
+    ''; # add boot entries munually to speed up rebuilds
   };
 
   # Allow NixOS to read NTFS(windows) file systems
