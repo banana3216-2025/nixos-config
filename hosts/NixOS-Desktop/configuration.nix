@@ -212,7 +212,7 @@
   custom-modules.desktop.swww.enable = true;
 
   environment.sessionVariables = {
-    BAR = "qs -p -d /etc/nixos/shared/quickshell-bar.qml"; # Map the system bar to quickshell bar
+    BAR = "qs -d -p /etc/nixos/shared/quickshell-bar.qml"; # Map the system bar to quickshell bar
   };
 
   custom-modules.desktop.gtk = {

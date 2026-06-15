@@ -35,7 +35,7 @@ hl.monitor({
 local terminal          = "kitty"
 local fileManager       = "yazi"
 local menu              = "wofi --show drun"
-local bar               = "$BAR"
+local bar               = "eval $BAR"
 local wallpaper_manager = "$WALLPAPER_MANAGER"
 
 
