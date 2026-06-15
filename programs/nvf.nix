@@ -340,78 +340,95 @@ in {
           globals.mapleader = " ";
           options.timeoutlen = 500;
 
-          maps = {
-            normal = {
-              "<leader>fg" = {
-                action = ":Telescope find_files<CR>";
-                silent = true;
-                desc = "Telescope Find Files";
-              };
+          keymaps = [
+            {
+              key = "<leader>fg";
+              mode = "n";
+              action = ":Telescope find_files<CR>";
+              silent = true;
+              desc = "Telescope Find Files";
+            }
 
-              "<leader>ff" = {
-                action = ":Telescope live_grep<CR>";
-                silent = true;
-                desc = "Telescope Live Grep";
-              };
+            {
+              key = "<leader>ff";
+              mode = "n";
+              action = ":Telescope live_grep<CR>";
+              silent = true;
+              desc = "Telescope Live Grep";
+            }
 
-              "<C-a>" = {
-                action = ":lua vim.lsp.buf.code_action()<CR>";
-                silent = true;
-                desc = "LSP: trigger code actions";
-              };
+            {
+              key = "<C-a>";
+              mode = "n";
+              action = ":lua vim.lsp.buf.code_action()<CR>";
+              silent = true;
+              desc = "LSP: trigger code actions";
+            }
 
-              "<leader>aa" = {
-                action = ":Neotree toggle<CR>";
-                silent = true;
-                desc = "Toggles Neo-Tree";
-              };
+            {
+              key = "<leader>aa";
+              mode = "n";
+              action = ":Neotree toggle<CR>";
+              silent = true;
+              desc = "Toggles Neo-Tree";
+            }
 
-              "<C-d>" = {
-                action = "<C-d>zz";
-                silent = true;
-                desc = "Scrolls down but keeps cursor in center";
-              };
+            {
+              key = "<C-d>";
+              mode = "n";
+              action = "<C-d>zz";
+              silent = true;
+              desc = "Scrolls down but keeps cursor in center";
+            }
 
-              "<C-b>" = {
-                action = "<C-b>zz";
-                silent = true;
-                desc = "Scrolls up but keeps cursor in center";
-              };
+            {
+              key = "<C-b>";
+              mode = "n";
+              action = "<C-b>zz";
+              silent = true;
+              desc = "Scrolls up but keeps cursor in center";
+            }
 
-              "qs" = {
-                action = ":w | bp | bd #<CR>";
-                silent = true;
-                desc = "Saves and cloes the buffer tab(closes tab on tob bar)";
-              };
+            {
+              key = "qs";
+              mode = "n";
+              action = ":w | bp | bd #<CR>";
+              silent = true;
+              desc = "Saves and cloes the buffer tab(closes tab on tob bar)";
+            }
 
-              "gt" = {
-                action = ":bnext<CR>";
-                silent = true;
-                desc = "moves to the next buffer with tab moving keys";
-              };
+            {
+              key = "gt";
+              mode = "n";
+              action = ":bnext<CR>";
+              silent = true;
+              desc = "moves to the next buffer with tab moving keys";
+            }
 
-              "g<S-t>" = {
-                # g then capital T
-                action = ":bprev<CR>";
-                silent = true;
-                desc = "moves to the next buffer with tab moving keys";
-              };
+            {
+              key = "g<S-t>";
+              mode = "n";
+              action = ":bprev<CR>";
+              silent = true;
+              desc = "moves to the next buffer with tab moving keys";
+            }
 
-              "<leader>lg" = {
-                action = "<cmd>lua require('toggleterm.terminal').Terminal:new({ cmd = 'lazygit', hidden = true }):toggle()<CR>";
-                silent = true;
-                desc = "Opens lazygit";
-              };
-            };
+            {
+              key = "<leader>lg";
+              mode = "n";
+              action = "<cmd>lua require('toggleterm.terminal').Terminal:new({ cmd = 'lazygit', hidden = true }):toggle()<CR>";
+              silent = true;
+              desc = "Opens lazygit";
+            }
 
-            terminal = {
-              "<Esc>" = {
-                action = "<C-\\><C-n>";
-                silent = true;
-                desc = "Escape terminal mode";
-              };
-            };
-          };
+            {
+              key = "<Esc>";
+              mode = "t";
+              action = "<C-\\><C-n>";
+              silent = true;
+              desc = "Escape terminal mode";
+            }
+          ];
         };
       };
     };
