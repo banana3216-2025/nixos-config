@@ -211,7 +211,7 @@
   custom-modules.launchers.wofi.enable = true;
   custom-modules.desktop.swww.enable = true;
 
-  environment.sessionVariables = {
+  environment.variables = {
     BAR = "qs -d -p /etc/nixos/shared/quickshell-bar.qml"; # Map the system bar to quickshell bar
   };
 
