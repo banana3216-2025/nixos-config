@@ -35,11 +35,6 @@ in {
       config.common.default = "*";
     };
 
-    # Ensure systemd user session handles system-wide environment handoffs
-    systemd.user.extraConfig = ''
-      DefaultEnvironment="XDG_CURRENT_DESKTOP=Hyprland" "WAYLAND_DISPLAY=wayland-1"
-    '';
-
     home-manager.users = lib.genAttrs cfg.targetUsers (username: {
       wayland.windowManager.hyprland = {
         enable = true;

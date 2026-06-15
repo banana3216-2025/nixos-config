@@ -67,7 +67,7 @@ in {
         font_family      ${cfg.font.family}
         font_size        ${toString cfg.font.size}
 
-        scrollback_lines 10000
+        scrollback_lines 1000
         enable_audio_bell no
       '';
     });
