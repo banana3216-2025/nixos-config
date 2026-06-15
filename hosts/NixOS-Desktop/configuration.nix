@@ -17,7 +17,6 @@
     ../../programs/wofi.nix
     ../../programs/thunar.nix
     ../../programs/swww.nix
-    ../../programs/waybar.nix
     ../../programs/gtk.nix
     ../../programs/hyprland.nix
     ../../programs/sober.nix
@@ -105,7 +104,6 @@
   };
 
   networking.hostName = "NixOS-Desktop"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -149,7 +147,7 @@
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   nix.settings = {
-    max-jobs = 4; # Scale this based on your RAM (e.g., 1 or 2 max)
+    max-jobs = 4; # Scale this based on your RAM(about 1/2 your RAM +- ~2)
     cores = 6; # Limit the number of cores used per build job
   };
 
@@ -213,9 +211,8 @@
   custom-modules.launchers.wofi.enable = true;
   custom-modules.desktop.swww.enable = true;
 
-  custom-modules.desktop.waybar = {
-    enable = true;
-    targetUsers = ["${mainUser}"];
+  environment.sessionVariables = {
+    BAR = "qs -p -d /etc/nixos/shared/quickshell-bar.qml"; # Map the system bar to quickshell bar
   };
 
   custom-modules.desktop.gtk = {
