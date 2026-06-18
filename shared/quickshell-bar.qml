@@ -34,6 +34,8 @@ ShellRoot {
     readonly property color mantle:    "#181825" 
     readonly property color crust:     "#11111b" 
 
+    readonly property int   font_size:         15
+
     readonly property color workspace_color:   blue
     readonly property color cpu_color:         red
     readonly property color ram_color:         lavender
@@ -153,7 +155,7 @@ ShellRoot {
 
                           textFormat: Text.RichText
                           text: `<span style="color: ${workspace_color}; background-color: ${surface0}"></span><span style="color: ${crust}; background-color: ${workspace_color}; font-weight: 700;"> Workspace </span><span style="color: ${workspace_color}; background-color: ${surface1}; font-weight: 900;">&nbsp;#${(Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.id : "None")}</span><span style="color: ${surface1}; background-color: ${surface0}"></span>`
-                          font.pixelSize: 15
+                          font.pixelSize: font_size
                           font.family: "JetBrainsMono Nerd Font"
                           color: textcolor
                       }
@@ -162,7 +164,7 @@ ShellRoot {
                           id: mode
 
                           textFormat: Text.RichText
-                          font.pixelSize: 15
+                          font.pixelSize: font_size
                           font.family: "JetBrainsMono Nerd Font"
                           color: textcolor
 
@@ -175,7 +177,7 @@ ShellRoot {
                           id: cpu
 
                           textFormat: Text.RichText
-                          font.pixelSize: 15
+                          font.pixelSize: font_size
                           font.family: "JetBrainsMono Nerd Font"
                           color: textcolor
 
@@ -186,7 +188,7 @@ ShellRoot {
                           id: ram
 
                           textFormat: Text.RichText
-                          font.pixelSize: 15
+                          font.pixelSize: font_size
                           font.family: "JetBrainsMono Nerd Font"
                           color: textcolor
 
@@ -197,7 +199,7 @@ ShellRoot {
                           id: clock
 
                           textFormat: Text.RichText
-                          font.pixelSize: 15
+                          font.pixelSize: font_size
                           font.family: "JetBrainsMono Nerd Font"
                           color: textcolor
 
