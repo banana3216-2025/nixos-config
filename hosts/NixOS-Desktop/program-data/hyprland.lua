@@ -269,7 +269,6 @@ hl.bind("CTRL + SUPER + ALT + SPACE", hl.dsp.exec_cmd("hyprctl switchxkblayout a
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + W", hl.dsp.window.close())
-hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ action = "toggle" }))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
@@ -286,7 +285,7 @@ hl.bind(mainMod .. " + L",  hl.dsp.focus({ direction = "right" }));
 hl.bind(mainMod .. " + K",  hl.dsp.focus({ direction = "up"    }));
 hl.bind(mainMod .. " + J",  hl.dsp.focus({ direction = "down"  }));
 
--- Vim resize keybindings
+-- resize keybindings
 hl.bind(mainMod .. " + R", hl.dsp.submap("resize"));
 
 hl.define_submap("resize", function() 
@@ -295,7 +294,76 @@ hl.define_submap("resize", function()
     hl.bind("K", hl.dsp.window.resize({ x = 0,   y = -15, relative = true}), { repeating = true });
     hl.bind("J", hl.dsp.window.resize({ x = 0,   y = 15,  relative = true}), { repeating = true });
 
+    hl.bind("left",  hl.dsp.window.resize({ x = -15, y = 0,   relative = true}), { repeating = true });
+    hl.bind("right", hl.dsp.window.resize({ x = 15,  y = 0,   relative = true}), { repeating = true });
+    hl.bind("up",    hl.dsp.window.resize({ x = 0,   y = -15, relative = true}), { repeating = true });
+    hl.bind("down",  hl.dsp.window.resize({ x = 0,   y = 15,  relative = true}), { repeating = true });
+
+    -- Move focus with mainMod + arrow keys
+    hl.bind("ALT" .. " + left",  hl.dsp.focus({ direction = "left"  }))
+    hl.bind("ALT" .. " + right", hl.dsp.focus({ direction = "right" }))
+    hl.bind("ALT" .. " + up",    hl.dsp.focus({ direction = "up"    }))
+    hl.bind("ALT" .. " + down",  hl.dsp.focus({ direction = "down"  }))
+
+    hl.bind("ALT" .. " + H",  hl.dsp.focus({ direction = "left"  }));
+    hl.bind("ALT" .. " + L",  hl.dsp.focus({ direction = "right" }));
+    hl.bind("ALT" .. " + K",  hl.dsp.focus({ direction = "up"    }));
+    hl.bind("ALT" .. " + J",  hl.dsp.focus({ direction = "down"  }));
+
+    -- Allow to move to other modes
+    hl.bind(mainMod .. " + B", hl.dsp.submap("move"));
+    hl.bind(mainMod .. " + O", hl.dsp.submap("session"));
+
     -- Bind submap escape key
+    hl.bind("escape", hl.dsp.submap("reset"));
+end);
+
+-- window move keybindings
+hl.bind(mainMod .. " + B", hl.dsp.submap("move"));
+
+hl.define_submap("move", function() 
+    hl.bind("H", hl.dsp.window.move({ direction = "left"  }), { repeating = true });
+    hl.bind("L", hl.dsp.window.move({ direction = "right" }), { repeating = true });
+    hl.bind("K", hl.dsp.window.move({ direction = "up"    }), { repeating = true });
+    hl.bind("J", hl.dsp.window.move({ direction = "down"  }), { repeating = true });
+
+    hl.bind("left",  hl.dsp.window.move({ direction = "left"  }), { repeating = true });
+    hl.bind("right", hl.dsp.window.move({ direction = "right" }), { repeating = true });
+    hl.bind("up",    hl.dsp.window.move({ direction = "up"    }), { repeating = true });
+    hl.bind("down",  hl.dsp.window.move({ direction = "down"  }), { repeating = true });
+
+    -- Move focus with mainMod + arrow keys
+    hl.bind("ALT" .. " + left",  hl.dsp.focus({ direction = "left"  }))
+    hl.bind("ALT" .. " + right", hl.dsp.focus({ direction = "right" }))
+    hl.bind("ALT" .. " + up",    hl.dsp.focus({ direction = "up"    }))
+    hl.bind("ALT" .. " + down",  hl.dsp.focus({ direction = "down"  }))
+
+    hl.bind("ALT" .. " + H",  hl.dsp.focus({ direction = "left"  }));
+    hl.bind("ALT" .. " + L",  hl.dsp.focus({ direction = "right" }));
+    hl.bind("ALT" .. " + K",  hl.dsp.focus({ direction = "up"    }));
+    hl.bind("ALT" .. " + J",  hl.dsp.focus({ direction = "down"  }));
+  
+    -- Allow to move to other modes
+    hl.bind(mainMod .. " + R", hl.dsp.submap("resize"));
+    hl.bind(mainMod .. " + O", hl.dsp.submap("session"));
+    
+    -- Bind submap escape keybindings
+    hl.bind("escape", hl.dsp.submap("reset"));
+end);
+
+-- Session options
+hl.bind(mainMod .. " + O", hl.dsp.submap("session"));
+
+hl.define_submap("session", function() 
+    hl.bind("M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
+    hl.bind("S", hl.dsp.exec_cmd("shutdown now"))
+    hl.bind("R", hl.dsp.exec_cmd("reboot"))
+
+    -- Allow to move to other modes
+    hl.bind(mainMod .. " + B", hl.dsp.submap("move"));
+    hl.bind(mainMod .. " + R", hl.dsp.submap("resize"));
+    
+    -- Bind submap escape keybindings
     hl.bind("escape", hl.dsp.submap("reset"));
 end);
 
@@ -337,16 +405,16 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = tr
 ---- WINDOWS AND WORKSPACES ----
 --------------------------------
 
-hl.workspace_rule({ workspace = "1", monitor = "DP-1" })
-hl.workspace_rule({ workspace = "2", monitor = "DP-1"})
-hl.workspace_rule({ workspace = "3", monitor = "HDMI-A-1"})
-hl.workspace_rule({ workspace = "4", monitor = "HDMI-A-1"})
-hl.workspace_rule({ workspace = "5", monitor = "DP-1" })
-hl.workspace_rule({ workspace = "6", monitor = "DP-1"})
-hl.workspace_rule({ workspace = "7", monitor = "HDMI-A-1"})
-hl.workspace_rule({ workspace = "8", monitor = "HDMI-A-1"})
-hl.workspace_rule({ workspace = "9", monitor = "DP-1" })
-hl.workspace_rule({ workspace = "10", monitor = "HDMI-A-1"})
+hl.workspace_rule({ workspace = "1",  monitor = "DP-1"     })
+hl.workspace_rule({ workspace = "2",  monitor = "DP-1"     })
+hl.workspace_rule({ workspace = "3",  monitor = "HDMI-A-1" })
+hl.workspace_rule({ workspace = "4",  monitor = "HDMI-A-1" })
+hl.workspace_rule({ workspace = "5",  monitor = "DP-1"     })
+hl.workspace_rule({ workspace = "6",  monitor = "DP-1"     })
+hl.workspace_rule({ workspace = "7",  monitor = "HDMI-A-1" })
+hl.workspace_rule({ workspace = "8",  monitor = "HDMI-A-1" })
+hl.workspace_rule({ workspace = "9",  monitor = "DP-1"     })
+hl.workspace_rule({ workspace = "10", monitor = "HDMI-A-1" })
 
 -- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 -- and https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/

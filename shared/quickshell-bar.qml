@@ -48,6 +48,8 @@ ShellRoot {
     readonly property var submapcolors: ({
         "NORMAL":      green, 
         "RESIZE":      peach,
+        "MOVE":        yellow,
+        "SESSION":     lavender
     })
     
     Connections {
