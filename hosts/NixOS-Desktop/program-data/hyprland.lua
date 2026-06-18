@@ -94,8 +94,8 @@ hl.env("HYPRCURSOR_SIZE", "24")
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
     general = {
-        gaps_in  = 3,
-        gaps_out = 8,
+        gaps_in  = 0,
+        gaps_out = 0,
 
         border_size = 1,
 
@@ -281,10 +281,24 @@ hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + up",    hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down",  hl.dsp.focus({ direction = "down" }))
 -- Vim keybindings
-hl.bind(mainMod .. " + H",  hl.dsp.focus({ direction = "left" }))
-hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + K",    hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. " + J",  hl.dsp.focus({ direction = "down" }))
+hl.bind(mainMod .. " + H",  hl.dsp.focus({ direction = "left"  }));
+hl.bind(mainMod .. " + L",  hl.dsp.focus({ direction = "right" }));
+hl.bind(mainMod .. " + K",  hl.dsp.focus({ direction = "up"    }));
+hl.bind(mainMod .. " + J",  hl.dsp.focus({ direction = "down"  }));
+
+-- Vim resize keybindings
+hl.bind(mainMod .. " + R", hl.dsp.submap("resize"));
+
+hl.define_submap("resize", function() 
+    hl.bind("H", hl.dsp.window.resize({ x = -15, y = 0,   relative = true}), { repeating = true });
+    hl.bind("L", hl.dsp.window.resize({ x = 15,  y = 0,   relative = true}), { repeating = true });
+    hl.bind("K", hl.dsp.window.resize({ x = 0,   y = -15, relative = true}), { repeating = true });
+    hl.bind("J", hl.dsp.window.resize({ x = 0,   y = 15,  relative = true}), { repeating = true });
+
+    -- Bind submap escape key
+    hl.bind("escape", hl.dsp.submap("reset"));
+end);
+
 
 for i = 1, 10 do
     local key = i % 10 -- 10 maps to key 0

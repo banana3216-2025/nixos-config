@@ -133,7 +133,7 @@ keybinds clear-defaults=true {
         bind "Ctrl s" { SwitchToMode "Scroll"; }
         bind "d" { Detach; }
 
-        bind "Alt r" {
+        bind "r" {
             SwitchToMode "Locked"
             Run "sh" "-c" "read res && zellij action rename-session \"$res\"" {
                 name "Rename Session"
