@@ -121,7 +121,7 @@ in {
 
                         datetime          "{format}"
                         datetime_format   "%Y-%m-%d 󰅐 %H:%M"
-                        datetime_timezone "Europe/Stockholm"
+                        datetime_timezone "America/Chicago"
                     }
                 }
             pane

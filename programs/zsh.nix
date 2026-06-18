@@ -36,7 +36,7 @@ in {
 
         shellAliases = {
           ls = "eza -lh";
-          clear-history = "/etc/nixos/clear_history.sh";
+          clear-history = "/etc/nixos/shared/clear_history.sh";
         };
 
         history = {
