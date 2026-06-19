@@ -103,6 +103,13 @@
     ];
   };
 
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 8 * 1024;
+    }
+  ];
+
   networking.hostName = "NixOS-Desktop"; # Define your hostname.
 
   # Enable networking
@@ -183,7 +190,7 @@
     nix-direnv
     vscode
 
-    inputs.quickshell.packages.${stdenv.hostPlatform.system}.default
+    quickshell
   ];
 
   programs.helium.enable = true;

@@ -25,7 +25,7 @@
     };
 
     quickshell = {
-      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
+      url = "github:quickshell-mirror/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -91,6 +91,8 @@
             (final: prev: {
               zjstatus = inputs.zjstatus.packages.${prev.stdenv.hostPlatform.system}.default;
             })
+
+            inputs.quickshell.overlays.default
           ];
 
           home-manager.useGlobalPkgs = true;
