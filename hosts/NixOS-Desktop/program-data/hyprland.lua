@@ -36,6 +36,7 @@ local terminal          = "kitty"
 local fileManager       = "yazi"
 local menu              = "wofi --show drun"
 local bar               = "eval $BAR"
+local notifications     = "eval $NOTIFICATION"
 local wallpaper_manager = "$WALLPAPER_MANAGER"
 
 
@@ -55,6 +56,7 @@ local wallpaper_manager = "$WALLPAPER_MANAGER"
 hl.on("hyprland.start", function() 
     hl.exec_cmd(wallpaper_manager);
     hl.exec_cmd(bar);
+    hl.exec_cmd(notifications);
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP");
 end)
 
