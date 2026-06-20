@@ -203,6 +203,9 @@ in {
               enable = true;
               lsp.enable = true;
               treesitter.enable = true;
+
+              format.enable = true;
+              format.type = ["biome"];
             };
 
             css = {
@@ -319,7 +322,7 @@ in {
 
             vim.api.nvim_create_autocmd("FileType", {
               group = tab_group,
-              pattern = { "c", "cpp", "python", "go", "rust", "javascript", "qml", "qmljs" },
+              pattern = { "c", "cpp", "python", "go", "rust", "javascript", "js", "qml", "qmljs" },
               callback = function()
                 -- Use a scheduled callback to run AFTER other plugins settle down
                 vim.schedule(function()
