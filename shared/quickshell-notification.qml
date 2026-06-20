@@ -8,7 +8,7 @@ import Quickshell.Services.Notifications
 
 import "quickshell-config.js" as Config
 
-Scope {
+ShellRoot {
     id: root
 
     ListModel { id: history }
@@ -33,8 +33,17 @@ Scope {
         function hide() { root.centerOpen = false }
     }
 
+    function findScreenByName(name) {
+        for (var i = 0; i < Quickshell.screens.length; i++) {
+            if (Quickshell.screens[i].name === name) {
+                return Quickshell.screens[i];
+            }
+        }
+        return Quickshell.screens[0]; // Fallback to first monitor
+    }
+
     PanelWindow {
-        visible: root.screen.name == "DP-1"
+        screen: findScreenByName("DP-1")
 
         anchors {
             top: true
