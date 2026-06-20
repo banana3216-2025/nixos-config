@@ -2,7 +2,6 @@
   pkgs,
   mainUser,
   config,
-  inputs,
   ...
 }: {
   imports = [
@@ -220,6 +219,7 @@
 
   environment.variables = {
     BAR = "qs -d -p /etc/nixos/shared/quickshell-bar.qml"; # Map the system bar to quickshell bar
+    NOTIFICATION = "qs -d -p /etc/nixos/shared/quickshell-notification.qml";
   };
 
   custom-modules.desktop.gtk = {

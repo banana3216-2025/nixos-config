@@ -1,54 +1,125 @@
 import QtQuick
+import QtQuick.Layouts
 import QtQuick.Controls
-import QtQuick.Layouts 1.15
 import Quickshell
+import Quickshell.Io
+import Quickshell.Wayland
 import Quickshell.Services.Notifications
 
-ShellRoot {
+import "quickshell-config.js" as Config
+
+Scope {
+    id: root
+
+    ListModel { id: history }
+    property bool centerOpen: false
+
     NotificationServer {
-        id: notifyServer
-        
-        // Advertise required capabilities to the system
+        id: server
         actionsSupported: true
-        bodyMarkupSupported: true
+        bodySupported: true
         imageSupported: true
-        
-        // trackedNotifications holds the active list model automatically
+
+        onNotification: n => {
+            history.insert(0, { summary: n.summary, body: n.body, appName: n.appName, urgency: n.urgency, time: Qt.formatDateTime(new Date(), "HH:mm") })
+            n.tracked = true
+        }
     }
 
-    ListView {
-        width: 350
-        height: 400
-        model: notifyServer.trackedNotifications
-        spacing: 8
+    IpcHandler {
+        target: "notifications"
+        function toggle() { root.centerOpen = !root.centerOpen }
+        function show() { root.centerOpen = true }
+        function hide() { root.centerOpen = false }
+    }
 
-        delegate: Rectangle {
-            width: parent.width
-            height: 60
-            color: "#2a2a2a"
-            radius: 6
+    PanelWindow {
+        visible: root.screen.name == "DP-1"
 
-            RowLayout {
-                anchors.fill: parent
-                anchors.margins: 10
+        anchors {
+            top: true
+            left: true
+        }
+        margins {
+            top: 12
+            left: 12
+        }
 
-                // Display application icon if available
-                Image {
-                    source: modelData.appIcon ? "image://icon/" + modelData.appIcon : ""
-                    fillMode: Image.PreserveAspectFit
-                    Layout.preferredWidth: 32
-                    Layout.preferredHeight: 32
-                }
+        implicitWidth: 380
+        implicitHeight: Math.max(20, column.implicitHeight)
+        color: "transparent"
 
-                Column {
-                    Text { text: modelData.summary; color: "white"; font.bold: true }
-                    Text { text: modelData.body; color: "gray" }
-                }
-                
-                // Close button to dismiss individual notification
-                Button {
-                    text: "X"
-                    onClicked: modelData.dismiss()
+        ColumnLayout {
+            id: column
+            anchors.fill: parent
+            spacing: 10
+
+            Repeater {
+                model: server.trackedNotifications
+
+                delegate: Rectangle {
+                    id: card
+                    required property var modelData
+
+                    Timer {
+                        running: card.modelData.urgency !== NotificationUrgency.Critical
+                        interval: Config.notifications.timeout
+                        onTriggered: card.modelData.dismiss()
+                    }
+
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 60
+
+                    radius: 8
+                    color: Config.colors.crust
+                    border.width: 2
+                    border.color: modelData.urgency === NotificationUrgency.Critical ? Config.colors.peach : Config.colors.blue
+
+                    RowLayout {
+                        id: layout
+                        anchors.fill: parent
+                        anchors.margins: 10
+                        spacing: 10
+
+                        Image {
+                            Layout.preferredHeight: 36
+                            Layout.preferredWidth: 36
+                            Layout.alignment: Qt.AlignTop
+                            fillMode: Image.PreserveAspectFit
+                            visible: source.toString() !== ""
+                            source: card.modelData.image || card.modelData.appIcon || ""
+                        }
+
+                        ColumnLayout {
+                            Layout.fillWidth: true
+                            spacing: 2
+
+                            Text {
+                                Layout.fillWidth: true
+                                text: card.modelData.summary
+                                color: Config.colors.green
+                                font.family: Config.font_family
+                                font.pixelSize: Config.font_size
+                                font.bold: true
+                                elide: Text.ElideRight
+                            }
+
+                            Text {
+                                Layout.fillWidth: true
+                                visible: text !== ""
+                                text: card.modelData.body
+                                color: Config.colors.textcolor
+                                font.family: Config.font_family
+                                font.pixelSize: Config.font_size - 2
+                                wrapMode: Text.WordWrap
+                            }
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: card.modelData.dismiss()
+                        }
+                    }
                 }
             }
         }
