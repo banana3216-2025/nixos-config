@@ -34,6 +34,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    qml-go-lsp = {
+      url = "github:cushycush/qml-language-server";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
 
     wallpapers.url = "github:banana3216-2025/wallpapers";
@@ -49,6 +54,7 @@
     catppuccin,
     quickshell,
     zjstatus,
+    qml-go-lsp,
     nix-flatpak,
     wallpapers,
     ...

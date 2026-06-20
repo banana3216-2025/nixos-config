@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  inputs,
   ...
 }: let
   cfg = config.custom-modules.editors.nvf;
@@ -246,17 +247,16 @@ in {
               treesitter.enable = true;
               dap.enable = true;
             };
+
+            qml.enable = true;
           };
 
           extraPackages = with pkgs; [
-            # C / C++ / Rust
-            lldb_19
-            # Python
+            lldb_19 # C / C++ / Rust
             python3Packages.debugpy
-            # JS / TS
             vscode-js-debug # JavaScript/TypeScript Debugger
-            # Go
             delve # Go Debugger
+            inputs.qml-go-lsp.packages.${stdenv.hostPlatform.system}.default # Qml
           ];
 
           luaConfigRC.dap-custom-adapters = ''
@@ -296,6 +296,10 @@ in {
             }
           '';
 
+          lsp.servers.qmlls = {
+            cmd = lib.mkForce ["qml-language-server"];
+          };
+
           telescope.enable = true;
           filetree.neo-tree.enable = true;
           tabline.nvimBufferline.enable = true;
@@ -315,7 +319,7 @@ in {
 
             vim.api.nvim_create_autocmd("FileType", {
               group = tab_group,
-              pattern = { "c", "cpp", "python", "go", "rust" },
+              pattern = { "c", "cpp", "python", "go", "rust", "javascript", "qml", "qmljs" },
               callback = function()
                 -- Use a scheduled callback to run AFTER other plugins settle down
                 vim.schedule(function()
