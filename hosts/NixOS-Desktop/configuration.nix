@@ -23,6 +23,7 @@
     ../../programs/zellij.nix
 
     ../../shared/smb-share.nix
+    ../../shared/plymouth-theme-nix-apple/theme.nix
   ];
 
   # Bootloader.
@@ -53,6 +54,9 @@
       ''; # add boot entries munually to speed up rebuilds
     };
   };
+
+  # enable plymouth with my theme
+  custom-modules.boot.nix-plymouth-theme.enable = true;
 
   # Allow NixOS to read NTFS(windows) file systems
   boot.supportedFilesystems = ["ntfs"];
@@ -190,6 +194,8 @@
     vscode
 
     quickshell
+    gimp
+    davinci-resolve
   ];
 
   programs.helium.enable = true;

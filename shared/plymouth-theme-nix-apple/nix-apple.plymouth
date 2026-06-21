@@ -1,0 +1,9 @@
+[Plymouth Theme]
+Name=nixos_apple
+Description=Looks like an apple boot but with the nixos icon
+Comment=created by banana3216-2025
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/nix-apple-theme
+ScriptFile=/usr/share/plymouth/themes/nix-apple-theme/nix-apple-theme.script

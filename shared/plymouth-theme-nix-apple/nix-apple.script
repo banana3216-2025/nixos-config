@@ -1,0 +1,18 @@
+logomark_image = Image("nix_logomark.png");
+
+screen_width = Window.GetWidth();
+screen_height = Window.GetHeight();
+
+# Change 0.25 to whatever scale you want (0.25 = the logo will take up exactly 25% of screen height)
+target_height = screen_height * 0.25; 
+
+scale_factor = target_height / logomark_image.GetHeight();
+target_width = logomark_image.GetWidth() * scale_factor;
+
+resized_logomark = logomark_image.Scale(target_width, target_height);
+
+logo_sprite = Sprite(resized_logomark);
+logo_sprite.SetX(screen_width / 2 - target_width / 2);
+logo_sprite.SetY(screen_height / 2 - target_height / 2);
+logo_sprite.SetZ(10);
+
