@@ -32,7 +32,7 @@ hl.monitor({
 ---------------------
 
 -- Set programs that you use
-local terminal          = "kitty"
+local terminal          = "ghostty"
 local fileManager       = "yazi"
 local menu              = "wofi --show drun"
 local bar               = "eval $BAR"

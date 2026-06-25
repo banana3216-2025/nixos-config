@@ -8,7 +8,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
-    ../../programs/kitty.nix
+    ../../programs/ghostty.nix
     ../../programs/nvf.nix
     ../../programs/zsh.nix
     ../../programs/starship.nix
@@ -200,7 +200,7 @@
 
   programs.helium.enable = true;
 
-  custom-modules.terminals.kitty = {
+  custom-modules.terminals.ghostty = {
     enable = true;
     targetUsers = ["${mainUser}" "root"];
     transparency = "0.85";
