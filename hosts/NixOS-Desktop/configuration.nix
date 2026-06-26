@@ -31,10 +31,16 @@
     efi.canTouchEfiVariables = true;
     efi.efiSysMountPoint = "/boot";
 
+    timeout = 2;
+
     grub = {
       enable = true;
       efiSupport = true;
       devices = ["nodev"]; # needed for modern EFI systems
+
+      timeoutStyle = "hidden";
+      splashImage = null;
+      backgroundColor = "#000000";
 
       useOSProber = false;
       extraEntries = ''
