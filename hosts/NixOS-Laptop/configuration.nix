@@ -2,6 +2,7 @@
   config,
   pkgs,
   mainUser,
+  inputs,
   ...
 }: {
   imports = [
@@ -9,7 +10,6 @@
     ./hardware-configuration.nix
 
     ../../programs/ghostty.nix
-    ../../programs/nvf.nix
     ../../programs/zsh.nix
     ../../programs/starship.nix
     ../../programs/yazi.nix
@@ -183,6 +183,8 @@
     quickshell
     gimp
     davinci-resolve
+
+    inputs.nvf-config.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   fonts.packages = with pkgs; [
@@ -202,8 +204,6 @@
     targetUsers = ["${mainUser}" "root"];
     transparency = "0.85";
   };
-
-  custom-modules.editors.nvf.enable = true;
 
   custom-modules.editors.yazi.enable = true;
   custom-modules.editors.thunar.enable = true;

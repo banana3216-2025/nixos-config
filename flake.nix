@@ -14,6 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nvf-config = {
+      url = "github:banana3216-2025/nvf-config";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     helium = {
       url = "github:oxcl/nix-flake-helium-browser";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -50,6 +55,7 @@
     nixpkgs,
     home-manager,
     nvf,
+    nvf-config,
     helium,
     catppuccin,
     quickshell,
@@ -135,7 +141,6 @@
       modules = [
         ./hosts/NixOS-Laptop/configuration.nix
 
-        nvf.nixosModules.default
         inputs.helium.nixosModules.default
         nix-flatpak.nixosModules.nix-flatpak
         home-manager.nixosModules.home-manager
