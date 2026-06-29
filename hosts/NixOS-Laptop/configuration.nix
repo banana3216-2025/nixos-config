@@ -1,7 +1,7 @@
 {
+  config,
   pkgs,
   mainUser,
-  config,
   ...
 }: {
   imports = [
@@ -23,46 +23,11 @@
     ../../programs/zellij.nix
 
     ../../shared/smb-share.nix
-    ../../shared/plymouth-theme-nix-apple/theme.nix
   ];
 
   # Bootloader.
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    efi.efiSysMountPoint = "/boot";
-
-    timeout = 2;
-
-    grub = {
-      enable = true;
-      efiSupport = true;
-      devices = ["nodev"]; # needed for modern EFI systems
-
-      timeoutStyle = "hidden";
-      splashImage = null;
-      backgroundColor = "#000000";
-
-      useOSProber = false;
-      extraEntries = ''
-        menuentry "Windows 10" --class windows --class os {
-            insmod part_gpt
-            insmod fat
-            search --no-floppy --fs-uuid --set=root A0FE-8C72
-            chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-        }
-
-        menuentry "Fedora Linux" --class fedora --class os {
-            insmod part_gpt
-            insmod fat
-            search --no-floppy --fs-uuid --set=root A0FE-8C72
-            chainloader /EFI/fedora/grubx64.efi
-        }
-      ''; # add boot entries munually to speed up rebuilds
-    };
-  };
-
-  # enable plymouth with my theme
-  custom-modules.boot.nix-plymouth-theme.enable = true;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   # Allow NixOS to read NTFS(windows) file systems
   boot.supportedFilesystems = ["ntfs"];
@@ -119,24 +84,10 @@
     }
   ];
 
-  networking.hostName = "NixOS-Desktop"; # Define your hostname.
+  networking.hostName = "NixOS-Laptop"; # Define your hostname.
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "America/Chicago";
-
-  services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
-  # Configure keyboard layout
-  services.xserver.xkb = {
-    layout = "us,us";
-    variant = ",dvorak"; # Empty string before the comma keeps the first layout standard
-    options = ""; # shortcut definied in hyprland config
-  };
 
   console.useXkbConfig = true;
 
@@ -162,9 +113,12 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
+  # Set your time zone.
+  time.timeZone = "America/Chicago";
+
   nix.settings = {
-    max-jobs = 4; # Scale this based on your RAM(about 1/2 your RAM +- ~2)
-    cores = 6; # Limit the number of cores used per build job
+    max-jobs = 4;
+    cores = 6;
   };
 
   users.users.${mainUser} = {
@@ -206,6 +160,10 @@
 
   programs.helium.enable = true;
 
+  services.xserver.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
+
   custom-modules.terminals.ghostty = {
     enable = true;
     targetUsers = ["${mainUser}" "root"];
@@ -245,23 +203,6 @@
   };
 
   custom-modules.tools.my-nas.enable = true;
-
-  specialisation = {
-    gamer-mode = {
-      inheritParentConfig = true;
-      configuration = {
-        custom-modules.games.sober.enable = true;
-
-        environment.systemPackages = with pkgs; [
-          steam
-          discord
-        ];
-
-        # Changing bootloader label for clarity
-        system.nixos.tags = ["gamer-mode"];
-      };
-    };
-  };
 
   # This value determines the NixOS release from which the default
   system.stateVersion = "26.05";
