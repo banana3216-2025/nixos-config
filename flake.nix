@@ -124,6 +124,71 @@
       ];
     };
 
+    nixosConfigurations.NixOS-Laptop = nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit inputs;
+        mainUser = "user";
+      };
+
+      system = "x86_64-linux";
+
+      modules = [
+        ./hosts/NixOS-Laptop/configuration.nix
+
+        nvf.nixosModules.default
+        inputs.helium.nixosModules.default
+        nix-flatpak.nixosModules.nix-flatpak
+        home-manager.nixosModules.home-manager
+        ({
+          mainUser,
+          inputs,
+          pkgs,
+          ...
+        }: {
+          fonts.packages = with pkgs; [
+            nerd-fonts.symbols-only
+            nerd-fonts.jetbrains-mono
+          ];
+
+          environment.systemPackages = with pkgs; [
+            eza
+            btop
+            git
+            gh
+          ];
+
+          # Injects the zjstatus flake into the nixpkgs for convenience
+          nixpkgs.overlays = [
+            (final: prev: {
+              zjstatus = inputs.zjstatus.packages.${prev.stdenv.hostPlatform.system}.default;
+            })
+
+            inputs.quickshell.overlays.default
+          ];
+
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = "backup";
+          home-manager.extraSpecialArgs = {inherit inputs;};
+
+          home-manager.users.${mainUser} = {
+            home.stateVersion = "26.05";
+            home.username = "${mainUser}";
+            home.homeDirectory = "/home/${mainUser}";
+
+            xdg.configFile.".gtkrc-2.0".enable = false;
+            home.file."Pictures/Wallpapers".source = inputs.wallpapers;
+          };
+
+          home-manager.users.root = {
+            home.stateVersion = "26.05";
+            home.username = "root";
+            home.homeDirectory = "/root";
+          };
+        })
+      ];
+    };
+
     nixosConfigurations.NixOS-Mac = nixpkgs.lib.nixosSystem {
       specialArgs = {
         inherit inputs;
