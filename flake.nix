@@ -145,18 +145,6 @@
           pkgs,
           ...
         }: {
-          fonts.packages = with pkgs; [
-            nerd-fonts.symbols-only
-            nerd-fonts.jetbrains-mono
-          ];
-
-          environment.systemPackages = with pkgs; [
-            eza
-            btop
-            git
-            gh
-          ];
-
           # Injects the zjstatus flake into the nixpkgs for convenience
           nixpkgs.overlays = [
             (final: prev: {

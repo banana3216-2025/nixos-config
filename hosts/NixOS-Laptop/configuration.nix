@@ -19,7 +19,6 @@
     ../../programs/gtk.nix
     ../../programs/hyprland.nix
     ../../programs/sober.nix
-    ../../programs/tmux.nix
     ../../programs/zellij.nix
 
     ../../shared/smb-share.nix
@@ -65,6 +64,17 @@
     powerManagement.enable = false;
     open = false;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+    powerManagement.finegrained = true;
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+
+      amdgpuBusId = "PCI:5:0:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
   };
 
   hardware.graphics = {
@@ -158,6 +168,11 @@
     davinci-resolve
   ];
 
+  fonts.packages = with pkgs; [
+    nerd-fonts.symbols-only
+    nerd-fonts.jetbrains-mono
+  ];
+
   programs.helium.enable = true;
 
   services.xserver.enable = true;
@@ -180,7 +195,6 @@
   custom-modules.shell.starship.enable = true;
   custom-modules.shell.starship.targetUsers = ["${mainUser}" "root"];
 
-  custom-modules.shell.tmux.enable = true;
   custom-modules.shell.zellij.enable = true;
   custom-modules.shell.zellij.targetUsers = ["${mainUser}" "root"];
 
@@ -188,7 +202,7 @@
   custom-modules.desktop.swww.enable = true;
 
   environment.variables = {
-    BAR = "qs -d -p /etc/nixos/shared/quickshell/quickshell-bar.qml"; # Map the system bar to quickshell bar
+    BAR = "qs -d -p /etc/nixos/hosts/NixOS-Laptop/program-data/quickshell-bar.qml"; # Map the system bar to quickshell bar
     NOTIFICATION = "qs -d -p /etc/nixos/shared/quickshell/quickshell-notification.qml";
   };
 

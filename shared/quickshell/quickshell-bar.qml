@@ -1,3 +1,6 @@
+// This is an example usage
+// if you are going to use quickshell as your bar please do not use this file
+
 import QtQuick
 import QtQuick.Layouts
 import Quickshell

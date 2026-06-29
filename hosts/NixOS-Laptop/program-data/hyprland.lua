@@ -37,7 +37,7 @@ local fileManager       = "yazi"
 local menu              = "wofi --show drun"
 local bar               = "eval $BAR"
 local notifications     = "eval $NOTIFICATION"
-local wallpaper_manager = "$WALLPAPER_MANAGER"
+local wallpaper_manager = "eval $WALLPAPER_MANAGER"
 
 
 -------------------
