@@ -87,6 +87,21 @@
     ];
   };
 
+  # enable lower power mode for when using battery only
+  services.auto-cpufreq = {
+    enable = true;
+    settings = {
+      battery = {
+        governor = "powersave";
+        turbo = "never";
+      };
+      charger = {
+        governor = "performance";
+        turbo = "auto";
+      };
+    };
+  };
+
   swapDevices = [
     {
       device = "/var/lib/swapfile";
@@ -155,6 +170,8 @@
   environment.systemPackages = with pkgs; [
     git
     gh
+    eza
+    brightnessctl
     fzf
     fastfetch
     btop
@@ -178,6 +195,7 @@
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
+  services.power-profiles-daemon.enable = false; # Stop stupid KDE from trying to manage the power mode
 
   custom-modules.terminals.ghostty = {
     enable = true;
