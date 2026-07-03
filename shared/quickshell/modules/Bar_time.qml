@@ -25,7 +25,7 @@ Item {
             repeat: true
             triggeredOnStart: true
             onTriggered: {
-                parent.text = `<span style="color: ${color}; background-color: ${Config.colors.surface0};"></span><span style="color: ${Config.colors.crust}; background-color: ${color};">󰃭 </span><span style="color: ${color}; background-color: ${Config.colors.surface1}; font-weight: 700;">&nbsp;${Qt.formatDate(new Date(), date_format)}  ${(new Date().toLocaleTimeString(Qt.locale(), time_format))}</span><span style="color: ${Config.colors.surface1}; background-color: ${Config.colors.surface0};"></span>`
+                parent.text = `<span style="color: ${color}; background-color: transparent;"></span><span style="color: ${Config.colors.crust}; background-color: ${color};">󰃭 </span><span style="color: ${color}; background-color: ${Config.colors.surface1}; font-weight: 700;">${Qt.formatDate(new Date(), date_format)} ${(new Date().toLocaleTimeString(Qt.locale(), time_format))}</span><span style="color: ${Config.colors.surface1}; background-color: transparent;"></span>`
             }
         }
     }

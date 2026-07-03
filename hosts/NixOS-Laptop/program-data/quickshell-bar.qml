@@ -25,7 +25,7 @@ ShellRoot {
 
                 color: Config.colors.surface0
 
-                implicitHeight: 18
+                implicitHeight: 20
                 exclusiveZone: height
                 WlrLayershell.layer: WlrLayer.Top
 

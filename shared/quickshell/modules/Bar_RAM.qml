@@ -46,6 +46,6 @@ Item {
         id: ram
 
         textFormat: Text.RichText
-        text: `<span style="color: ${(memUsage < danager_level) ? color : danager_color}; background-color: ${Config.colors.surface0}"></span><span style="color: ${Config.colors.crust}; background-color: ${(memUsage < danager_level) ? color : danager_color}"> </span><span style="color: ${(memUsage < danager_level) ? color : danager_color}; background-color: ${Config.colors.surface1}; font-weight: 700;">&nbsp;${(memUsage < danager_level) ? "" : danager_label}${String(memUsage).padStart(2, '0')}</span><span style="color: ${Config.colors.surface1}; background-color: ${Config.colors.surface0};"></span>`
+        text: `<span style="color: ${(memUsage < danager_level) ? color : danager_color}; background-color: transparent"></span><span style="color: ${Config.colors.crust}; background-color: ${(memUsage < danager_level) ? color : danager_color}"> </span><span style="color: ${(memUsage < danager_level) ? color : danager_color}; background-color: ${Config.colors.surface1}; font-weight: 700;">&nbsp;${(memUsage < danager_level) ? "" : danager_label}${String(memUsage).padStart(2, '0')}</span><span style="color: ${Config.colors.surface1}; background-color: transparent;"></span>`
     }
 }

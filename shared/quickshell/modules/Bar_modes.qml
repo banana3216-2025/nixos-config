@@ -40,6 +40,6 @@ Item {
         id: mode
 
         textFormat: Text.RichText
-        text: `<span style="color: ${submapcolors[submap]}; background-color: ${Config.colors.surface0}"></span><span style="color: ${Config.colors.surface0}; background-color: ${(submapcolors[submap])}; font-weight: 700"> ${submap} </span><span style="color: ${submapcolors[submap]}; background-color: ${Config.colors.surface0};"></span>`
+        text: `<span style="color: ${submapcolors[submap]}; background-color: transparent"></span><span style="color: ${Config.colors.crust}; background-color: ${(submapcolors[submap])}; font-weight: 700"> ${submap} </span><span style="color: ${submapcolors[submap]}; background-color: transparent;"></span>`
     }
 }

@@ -21,6 +21,6 @@ Item {
         id: battery
 
         textFormat: Text.RichText
-        text: `<span style="color: ${(mainBattery.state == UPowerDeviceState.Charging) ? charging_color : color}; background-color: ${Config.colors.surface0}"></span><span style="color: ${Config.colors.crust}; background-color: ${(mainBattery.state == UPowerDeviceState.Charging) ? charging_color : color}">${(mainBattery.state == UPowerDeviceState.Charging) ? " " : "󰄌 "}</span><span style="color: ${(mainBattery.state == UPowerDeviceState.Charging) ? charging_color : color}; background-color: ${Config.colors.surface1}; font-weight: 700;">&nbsp;${String(mainBattery.percentage * 100).padStart(2, '0')}</span><span style="color: ${Config.colors.surface1}; background-color: ${Config.colors.surface0}"></span>`
+        text: `<span style="color: ${(mainBattery.state == UPowerDeviceState.Charging) ? charging_color : color}; background-color: transparent"></span><span style="color: ${Config.colors.crust}; background-color: ${(mainBattery.state == UPowerDeviceState.Charging) ? charging_color : color}">${(mainBattery.state == UPowerDeviceState.Charging) ? " " : "󰄌 "}</span><span style="color: ${(mainBattery.state == UPowerDeviceState.Charging) ? charging_color : color}; background-color: ${Config.colors.surface1}; font-weight: 700;">&nbsp;${String(mainBattery.percentage * 100).padStart(2, '0')}</span><span style="color: ${Config.colors.surface1}; background-color: transparent"></span>`
     }
 }

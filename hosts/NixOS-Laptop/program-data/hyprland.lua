@@ -25,6 +25,22 @@ hl.monitor({
     scale    = "1.0",
 })
 
+local INTERNAL_MONITOR = "eDP-1"
+local EXTERNAL_MONITOR = "HDMI-A-1"
+
+local function update_monitors()
+    if hl.get_monitor(EXTERNAL_MONITOR) ~= nil then
+        hl.monitor({ output = INTERNAL_MONITOR, disabled = true })
+        hl.monitor({ output = EXTERNAL_MONITOR, mode = "preferred", position = "0x0", scale = 1 })
+    else
+        hl.monitor({ output = INTERNAL_MONITOR, mode = "preferred", position = "0x0", scale = 1 })
+    end
+end
+
+hl.on("monitor.added", update_monitors)
+hl.on("monitor.removed", update_monitors)
+
+hl.on("hyprland.start", update_monitors)
 
 
 ---------------------
@@ -407,18 +423,16 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = tr
 ---- WINDOWS AND WORKSPACES ----
 --------------------------------
 
-hl.workspace_rule({ workspace = "1",   monitor = "DP-1"         })
-hl.workspace_rule({ workspace = "2",   monitor = "DP-1"         })
-hl.workspace_rule({ workspace = "3",   monitor = "DP-1"         })
-hl.workspace_rule({ workspace = "4",   monitor = "HDMI-A-1"     })
-hl.workspace_rule({ workspace = "5",   monitor = "HDMI-A-1"     })
-hl.workspace_rule({ workspace = "6",   monitor = "HDMI-A-1"     })
-hl.workspace_rule({ workspace = "7",   monitor = "DP-1"         })
-hl.workspace_rule({ workspace = "8",   monitor = "DP-1"         })
-hl.workspace_rule({ workspace = "9",   monitor = "DP-1"         })
-hl.workspace_rule({ workspace = "10",  monitor = "HDMI-A-1"     })
-hl.workspace_rule({ workspace = "11",  monitor = "DP-1-A-1"     })
-hl.workspace_rule({ workspace = "12",  monitor = "DP-1-A-1"     })
+hl.workspace_rule({ workspace = "1",   monitor = "*"         })
+hl.workspace_rule({ workspace = "2",   monitor = "*"         })
+hl.workspace_rule({ workspace = "3",   monitor = "*"         })
+hl.workspace_rule({ workspace = "4",   monitor = "eDP-1"     })
+hl.workspace_rule({ workspace = "5",   monitor = "eDP-1"     })
+hl.workspace_rule({ workspace = "6",   monitor = "eDP-1"     })
+hl.workspace_rule({ workspace = "7",   monitor = "*"         })
+hl.workspace_rule({ workspace = "8",   monitor = "*"         })
+hl.workspace_rule({ workspace = "9",   monitor = "eDP-1"     })
+hl.workspace_rule({ workspace = "10",  monitor = "eDP-1"     })
 
 -- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 -- and https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
