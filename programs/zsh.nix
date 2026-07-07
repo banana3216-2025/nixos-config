@@ -18,6 +18,15 @@ in {
       default = ["desktopUser"];
       description = "Users to apply Home Manager settings to.";
     };
+
+    aliases = lib.mkOption {
+      type = lib.types.attrsOf lib.types.str;
+      default = {
+        ls = "eza -lh";
+        clear-history = "/etc/nixos/shared/clear_history.sh";
+      };
+      description = "Shell aliases to add to Zsh.";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -34,10 +43,7 @@ in {
         autosuggestion.enable = true;
         syntaxHighlighting.enable = true;
 
-        shellAliases = {
-          ls = "eza -lh";
-          clear-history = "/etc/nixos/shared/clear_history.sh";
-        };
+        shellAliases = cfg.aliases;
 
         history = {
           size = 10000;

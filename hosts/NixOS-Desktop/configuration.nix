@@ -202,6 +202,7 @@
     quickshell
     gimp
     davinci-resolve
+    bat
   ];
 
   programs.helium.enable = true;
@@ -219,6 +220,12 @@
 
   custom-modules.shell.zsh.enable = true;
   custom-modules.shell.zsh.targetUsers = ["${mainUser}" "root"];
+  custom-modules.shell.zsh.aliases = {
+    ls = "eza -lha --icons";
+    clear-history = "/etc/nixos/shared/clear_history.sh";
+    cat = "bat";
+  };
+
   custom-modules.shell.starship.enable = true;
   custom-modules.shell.starship.targetUsers = ["${mainUser}" "root"];
 

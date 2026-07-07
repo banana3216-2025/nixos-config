@@ -369,11 +369,26 @@ hl.define_submap("session", function()
     hl.bind("escape", hl.dsp.submap("reset"));
 end);
 
+local numpad_binds = {
+    [1]  = "KP_End",
+    [2]  = "KP_Down",
+    [3]  = "KP_Next",
+    [4]  = "KP_Left",
+    [5]  = "KP_Begin",
+    [6]  = "KP_Right",
+    [7]  = "KP_Home",
+    [8]  = "KP_Up",
+    [9]  = "KP_Prior",
+    [10] = "KP_Insert"
+}
 
 for i = 1, 10 do
     local key = i % 10 -- 10 maps to key 0
     hl.bind(mainMod .. " + " .. key,             hl.dsp.focus({ workspace = i}))
     hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = tostring(i), follow = false }))
+
+    hl.bind(mainMod .. " + " .. numpad_binds[i],             hl.dsp.focus({ workspace = i}))
+    hl.bind(mainMod .. " + SHIFT + " .. numpad_binds[i], hl.dsp.window.move({ workspace = tostring(i), follow = false }))
 end
 
 -- Example special workspace (scratchpad)
