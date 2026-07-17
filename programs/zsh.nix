@@ -50,6 +50,12 @@ in {
           path = "$HOME/.zsh_history";
         };
       };
+
+      programs.direnv = {
+        enable = true;
+        nix-direnv.enable = true; # Fast, persistent nix caching module
+        enableZshIntegration = true; # Tells Home Manager to auto-patch your .zshrc
+      };
     });
   };
 }

@@ -32,7 +32,7 @@ in {
           family = lib.mkOption {
             type = lib.types.str;
             description = "sets the font family for ghostty";
-            default = "monospace";
+            default = "JetBrainsMono Nerd Font";
           };
 
           size = lib.mkOption {
@@ -58,14 +58,12 @@ in {
       xdg.configFile."ghostty/shaders/cursor_tail.glsl".text = builtins.readFile ../shared/ghostty-trail.glsl;
 
       xdg.configFile."ghostty/config".text = ''
-        # Generated automatically via NixOS Module
         background-opacity = ${cfg.transparency}
 
         # Window Behavior
         confirm-close-surface = false
 
         # --- Shaders ---
-        # FIX: Changed to absolute system path strings using Home Manager's config environment variables
         custom-shader = ${config.home-manager.users.${username}.xdg.configHome}/ghostty/shaders/cursor_tail.glsl
         custom-shader-animation = always
         # ----------------------------------

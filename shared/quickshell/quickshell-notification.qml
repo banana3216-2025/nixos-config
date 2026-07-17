@@ -21,7 +21,14 @@ ShellRoot {
         imageSupported: true
 
         onNotification: n => {
-            history.insert(0, { summary: n.summary, body: n.body, appName: n.appName, urgency: n.urgency, time: Qt.formatDateTime(new Date(), "HH:mm") })
+            history.insert(0, {
+                    summary: n.summary,
+                    body: n.body,
+                    appName: n.appName,
+                    image: n.image,
+                    urgency: n.urgency,
+                    time: Qt.formatDateTime(new Date(), "HH:mm")
+            })
             n.tracked = true
         }
     }
@@ -29,8 +36,8 @@ ShellRoot {
     IpcHandler {
         target: "notifications"
         function toggle() { root.centerOpen = !root.centerOpen }
-        function show() { root.centerOpen = true }
-        function hide() { root.centerOpen = false }
+        function open() { root.centerOpen = true }
+        function close() { root.centerOpen = false }
     }
 
     function findScreenByName(name) {
@@ -39,7 +46,7 @@ ShellRoot {
                 return Quickshell.screens[i];
             }
         }
-        return Quickshell.screens[0]; // Fallback to first monitor
+        return Quickshell.screens[0];
     }
 
     PanelWindow {
@@ -49,86 +56,306 @@ ShellRoot {
             top: true
             left: true
         }
-        margins {
-            top: 12
-            left: 12
-        }
 
-        implicitWidth: 380
+        implicitWidth: 400
         implicitHeight: Math.max(20, column.implicitHeight)
         color: "transparent"
 
         ColumnLayout {
             id: column
             anchors.fill: parent
-            spacing: 10
+            spacing: 0
 
             Repeater {
                 model: server.trackedNotifications
 
                 delegate: Rectangle {
-                    id: card
                     required property var modelData
+                    id: card;
+
+                    width: parent.width;
+                    height: card_information.implicitHeight;
+
+                    color: Config.colors.surface1;
 
                     Timer {
-                        running: card.modelData.urgency !== NotificationUrgency.Critical
-                        interval: Config.notifications.timeout
-                        onTriggered: card.modelData.dismiss()
+                        running: modelData.urgency !== NotificationUrgency.Critical;
+                        interval: 5000;
+                        onTriggered: card.modelData.dismiss();
                     }
 
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 60
+                    ColumnLayout {
+                        id: card_information;
+                        width: parent.width;
+                        spacing: 0;
 
-                    radius: 8
-                    color: Config.colors.crust
-                    border.width: 2
-                    border.color: modelData.urgency === NotificationUrgency.Critical ? Config.colors.peach : Config.colors.blue
+                        Rectangle {
+                            width: parent.width;
+                            height: topbar.height;
+
+                            color: Config.colors.surface0;
+
+                            RowLayout {
+                                width: parent.width;
+                                id: topbar;
+
+                                Text {
+                                    Layout.fillWidth: true;
+
+                                    textFormat: Text.RichText
+                                    color: Config.colors.green;
+                                    font.family: Config.font_family;
+                                    font.pixelSize: Config.font_size;
+
+                                    text: `<span style="color: ${modelData.urgency === NotificationUrgency.Critical ? Config.colors.peach : Config.colors.green};"></span><span style="color: ${Config.colors.crust}; background-color: ${modelData.urgency === NotificationUrgency.Critical ? Config.colors.peach : Config.colors.green};">󰍡 </span><span style="color: ${modelData.urgency === NotificationUrgency.Critical ? Config.colors.peach : Config.colors.green}; background-color: ${Config.colors.surface2};">&nbsp;${modelData.summary}</span><span style="color: ${Config.colors.surface2};"></span>`;
+                                }
+
+                                Text {
+                                    textFormat: Text.RichText
+                                    color: Config.colors.red;
+                                    font.family: Config.font_family;
+                                    font.pixelSize: Config.font_size;
+
+                                    text: `<span style="color: ${Config.colors.red};"></span><span style="color: ${Config.colors.crust}; background-color: ${Config.colors.red};"></span><span style="color: ${Config.colors.red};"></span>`;
+
+                                    MouseArea {
+                                        anchors.fill: parent;
+                                        onClicked: card.modelData.dismiss();
+                                    }
+                                }
+                            }
+                        }
+
+                        RowLayout {
+                            spacing: 0
+
+                            Text {
+                                id: body
+
+                                Layout.fillWidth: true;
+
+                                visible: modelData.body !== "";
+                                wrapMode: Text.WordWrap;
+
+                                color: Config.colors.textcolor;
+                                font.family: Config.font_family;
+                                font.pixelSize: Config.font_size;
+
+                                text: modelData.body;
+                            }
+
+                            Image {
+                                id: image;
+
+                                Layout.preferredHeight: Math.max(32, Math.min(body.height, 64));
+                                Layout.preferredWidth: Math.max(32, Math.min(body.height, 64));
+                                Layout.alignment: Qt.AlignTop;
+
+                                fillMode: Image.PreserveAspectFit
+                                source: (modelData.image && modelData.image !== "") ? modelData.image : ((modelData.appIcon && model.appIcon !== "") ? modelData.appIcon : "")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    PanelWindow {
+        screen: findScreenByName("DP-1");
+
+        anchors.left: true;
+        anchors.top: true;
+        anchors.bottom: true;
+        implicitWidth: root.centerOpen * 500;
+
+        color: "transparent";
+
+        Rectangle {
+            id: notification_center;
+            anchors.fill: parent
+
+            color: Config.colors.surface0;
+
+            ColumnLayout {
+                anchors.fill: parent;
+                spacing: 0;
+
+                Text {
+                    textFormat: Text.RichText;
+
+                    font.pixelSize: Config.font_size;
+                    font.family: Config.font_family;
+
+                    text: `<span style="color: ${Config.colors.blue}; background-color: transparent"></span><span style="color: ${Config.colors.crust}; background-color: ${Config.colors.blue}"> </span><span style="color: ${Config.colors.textcolor}; background-color: ${Config.colors.surface1}; font-weight: 700;">&nbsp;Notifications Center</span><span style="color: ${Config.colors.surface1}; background-color: transparent"></span>`;
+                }
+
+                ColumnLayout {
+                    spacing: 0;
+
+                    Text {
+                        visible: history.count == 0;
+
+                        Layout.fillWidth: true;
+                        Layout.fillHeight: true;
+
+                        textFormat: Text.RichText;
+
+                        font.pixelSize: Config.font_size;
+                        font.family: Config.font_family;
+                        color: Config.colors.textcolor;
+
+                        text: "No notifications Found"
+                    }
+
+                    Text {
+                        visible: history.count > 0;
+
+                        textFormat: Text.RichText;
+
+                        font.pixelSize: Config.font_size;
+                        font.family: Config.font_family;
+                        color: Config.colors.textcolor;
+
+                        text: "Hey look you have some notifications."
+                    }
 
                     RowLayout {
-                        id: layout
-                        anchors.fill: parent
-                        anchors.margins: 10
-                        spacing: 10
+                        spacing: Config.font_size * 0.5
 
-                        Image {
-                            Layout.preferredHeight: 36
-                            Layout.preferredWidth: 36
-                            Layout.alignment: Qt.AlignTop
-                            fillMode: Image.PreserveAspectFit
-                            visible: source.toString() !== ""
-                            source: card.modelData.image || card.modelData.appIcon || ""
+                        Text {
+                            visible: history.count > 0;
+
+                            textFormat: Text.RichText;
+
+                            font.pixelSize: Config.font_size;
+                            font.family: Config.font_family;
+                            color: Config.colors.textcolor;
+
+                            text: "Do you want to clear them."
                         }
+
+                        Text {
+                            visible: history.count > 0;
+
+                            textFormat: Text.RichText;
+
+                            font.pixelSize: Config.font_size;
+                            font.family: Config.font_family;
+                            color: Config.colors.red;
+
+                            text: "<b>Yes</b>"
+
+                            MouseArea {
+                                anchors.fill: parent;
+                                onClicked: history.clear();
+                            }
+                        }
+
+                    }
+                }
+
+                ListView {
+                    id: history_view
+
+                    clip: true
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+
+                    model: history;
+                    //spacing: Config.font_size;
+                    spacing: 0;
+
+                    delegate: Rectangle {
+                        id: card;
+
+                        width: notification_center.width;
+                        height: card_information.implicitHeight;
+
+                        color: Config.colors.surface1;
 
                         ColumnLayout {
-                            Layout.fillWidth: true
-                            spacing: 2
+                            id: card_information;
+                            width: parent.width;
+                            spacing: 0;
 
-                            Text {
-                                Layout.fillWidth: true
-                                text: card.modelData.summary
-                                color: Config.colors.green
-                                font.family: Config.font_family
-                                font.pixelSize: Config.font_size
-                                font.bold: true
-                                elide: Text.ElideRight
+                            Rectangle {
+                                width: parent.width;
+                                height: topbar.height;
+
+                                color: Config.colors.surface0;
+
+                                RowLayout {
+                                    width: parent.width;
+                                    id: topbar;
+
+                                    Text {
+                                        Layout.fillWidth: true;
+
+                                        textFormat: Text.RichText
+                                        color: Config.colors.green;
+                                        font.family: Config.font_family;
+                                        font.pixelSize: Config.font_size;
+
+                                        text: `<span style="color: ${model.urgency === NotificationUrgency.Critical ? Config.colors.peach : Config.colors.green};"></span><span style="color: ${Config.colors.crust}; background-color: ${model.urgency === NotificationUrgency.Critical ? Config.colors.peach : Config.colors.green};">󰍡 </span><span style="color: ${model.urgency === NotificationUrgency.Critical ? Config.colors.peach : Config.colors.green}; background-color: ${Config.colors.surface2};">&nbsp;${model.summary}</span><span style="color: ${Config.colors.surface2};"></span>`;
+                                    }
+
+                                    Text {
+                                        textFormat: Text.RichText
+                                        color: Config.colors.red;
+                                        font.family: Config.font_family;
+                                        font.pixelSize: Config.font_size;
+
+                                        text: `<span style="color: ${Config.colors.red};"></span><span style="color: ${Config.colors.crust}; background-color: ${Config.colors.red};"></span><span style="color: ${Config.colors.red};"></span>`;
+
+                                        MouseArea {
+                                            anchors.fill: parent;
+                                            onClicked: history.remove(index);
+                                        }
+                                    }
+
+                                    Text {
+                                        textFormat: Text.RichText
+                                        color: Config.colors.lavender;
+                                        font.family: Config.font_family;
+                                        font.pixelSize: Config.font_size;
+
+                                        text: `<span style="color: ${Config.colors.lavender};"></span><span style="color: ${Config.colors.crust}; background-color: ${Config.colors.lavender};"> </span><span style="color: ${Config.colors.lavender}; background-color: ${Config.colors.surface2};">&nbsp;${model.time}</span><span style="color: ${Config.colors.surface2};"></span>`;
+                                    }
+                                }
                             }
 
-                            Text {
-                                Layout.fillWidth: true
-                                visible: text !== ""
-                                text: card.modelData.body
-                                color: Config.colors.textcolor
-                                font.family: Config.font_family
-                                font.pixelSize: Config.font_size - 2
-                                wrapMode: Text.WordWrap
-                            }
-                        }
+                            RowLayout {
+                                spacing: 0
 
-                        MouseArea {
-                            anchors.fill: parent
-                            onClicked: card.modelData.dismiss()
+                                Text {
+                                    id: body
+
+                                    Layout.fillWidth: true;
+
+                                    visible: model.body !== "";
+                                    wrapMode: Text.WordWrap;
+
+                                    color: Config.colors.textcolor;
+                                    font.family: Config.font_family;
+                                    font.pixelSize: Config.font_size;
+
+                                    text: model.body;
+                                }
+
+                                Image {
+                                    id: image;
+
+                                    Layout.preferredHeight: Math.max(32, Math.min(body.height, 64));
+                                    Layout.preferredWidth: Math.max(32, Math.min(body.height, 64));
+                                    Layout.alignment: Qt.AlignTop;
+
+                                    fillMode: Image.PreserveAspectFit
+                                    source: (model.image && model.image !== "") ? model.image : ((model.appIcon && model.appIcon !== "") ? model.appIcon : "")
+                                }
+                            }
                         }
                     }
+
                 }
             }
         }

@@ -2,6 +2,7 @@
   pkgs,
   mainUser,
   config,
+  inputs,
   ...
 }: {
   imports = [
@@ -9,7 +10,6 @@
     ./hardware-configuration.nix
 
     ../../programs/ghostty.nix
-    ../../programs/nvf.nix
     ../../programs/zsh.nix
     ../../programs/starship.nix
     ../../programs/yazi.nix
@@ -38,9 +38,9 @@
       efiSupport = true;
       devices = ["nodev"]; # needed for modern EFI systems
 
-      timeoutStyle = "hidden";
-      splashImage = null;
-      backgroundColor = "#000000";
+      #timeoutStyle = "hidden";
+      #splashImage = null;
+      #backgroundColor = "#000000";
 
       useOSProber = false;
       extraEntries = ''
@@ -107,8 +107,6 @@
     enable32Bit = true;
     extraPackages = with pkgs; [
       vulkan-loader
-      vulkan-validation-layers
-      vulkan-extension-layer
     ];
   };
 
@@ -195,14 +193,15 @@
     fastfetch
     btop
     vim
-    direnv
-    nix-direnv
-    vscode
-
     quickshell
+    bat
+
+    vscode
     gimp
     davinci-resolve
-    bat
+    kicad
+
+    inputs.nvf-config.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   programs.helium.enable = true;
@@ -212,8 +211,6 @@
     targetUsers = ["${mainUser}" "root"];
     transparency = "0.85";
   };
-
-  custom-modules.editors.nvf.enable = true;
 
   custom-modules.editors.yazi.enable = true;
   custom-modules.editors.thunar.enable = true;
@@ -237,6 +234,8 @@
   custom-modules.desktop.swww.enable = true;
 
   environment.variables = {
+    EDITOR = "nvim";
+
     BAR = "qs -d -p /etc/nixos/shared/quickshell/quickshell-bar.qml"; # Map the system bar to quickshell bar
     NOTIFICATION = "qs -d -p /etc/nixos/shared/quickshell/quickshell-notification.qml";
   };

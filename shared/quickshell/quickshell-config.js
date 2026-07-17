@@ -37,7 +37,7 @@ var bar = {
     ram_danager_color: colors.peach,
     clock_color: colors.mauve,
 
-    ram_danager_level: 75,
+    ram_danager_level: 85,
     ram_danager_label:
         "!!! DANGER RAM USAGE APPROCHING A LEVEL WHERE THE SYSTEM WILL BEGIN TO CLOSE PROGRAMS !!! usage: ",
     submapcolors: {
@@ -49,5 +49,5 @@ var bar = {
 };
 
 var notifications = {
-    timeout: 5000, // In Miliseconds
+    timeout: 50000, // In Miliseconds
 };

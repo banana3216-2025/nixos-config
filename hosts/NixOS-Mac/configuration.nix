@@ -35,8 +35,6 @@
     enable32Bit = true;
     extraPackages = with pkgs; [
       vulkan-loader
-      vulkan-validation-layers
-      vulkan-extension-layer
     ];
   };
 
@@ -99,8 +97,6 @@
     fastfetch
     btop
     vim
-    direnv
-    nix-direnv
     vscode
 
     inputs.quickshell.packages.${stdenv.hostPlatform.system}.default

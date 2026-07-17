@@ -3,6 +3,7 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Hyprland
 import Quickshell.Io
+import QtQuick
 
 import "../quickshell-config.js" as Config;
 
@@ -30,6 +31,7 @@ Item {
                     var idleDelta = idle - cpuTracker.lastIdle;
                     if (totalDelta > 0) {
                         cpuUsage = Math.round(100 * (1 - (idleDelta / totalDelta)));
+                        console.log(cpuUsage);
                     }
                 }
                 cpuTracker.lastTotal = total;

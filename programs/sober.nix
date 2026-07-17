@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }: let
   cfg = config.custom-modules.games.sober;
@@ -19,9 +20,9 @@ in {
 
       packages = [
         "org.vinegarhq.Sober"
-	"org.vinegarhq.Vinegar"
       ];
     };
+    environment.systemPackages = [pkgs.vinegar]; # For roblox studio
 
     environment.profiles = [
       "$HOME/.local/share/flatpak/exports"
