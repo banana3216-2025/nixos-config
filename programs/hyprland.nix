@@ -22,11 +22,12 @@ in {
   config = lib.mkIf cfg.enable {
     programs.hyprland.enable = true;
     services.dbus.enable = true;
+    services.upower.enable = true;
 
     environment.sessionVariables = {
       XDG_CURRENT_DESKTOP = "Hyprland";
-      XDG_SESSION_TYPE = "wayland";
       XDG_SESSION_DESKTOP = "Hyprland";
+      XDG_SESSION_TYPE = "wayland";
     };
 
     xdg.portal = {
@@ -36,6 +37,15 @@ in {
     };
 
     home-manager.users = lib.genAttrs cfg.targetUsers (username: {
+      home.pointerCursor = {
+        gtk.enable = true;
+        x11.enable = true;
+        package = pkgs.bibata-cursors;
+        name = "Bibata-Modern-Classic";
+        size = 24;
+      };
+      home.pointerCursor.hyprcursor.enable = true;
+
       wayland.windowManager.hyprland = {
         enable = true;
 

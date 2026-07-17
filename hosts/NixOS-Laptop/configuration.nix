@@ -4,7 +4,27 @@
   mainUser,
   inputs,
   ...
-}: {
+}: let
+  sddm-astronaut =
+    (pkgs.sddm-astronaut.override {
+      embeddedTheme = "hyprland_kath";
+      themeConfig = {
+        HeaderTextColor = "#d5c4a1";
+        Font = "JetBrainsMono Nerd Font";
+        FontSize = "12";
+        FormPosition = "left";
+        Background = "Backgrounds/your-custom-background.jpg";
+      };
+    }).overrideAttrs (oldAttrs: {
+      installPhase =
+        oldAttrs.installPhase
+        + ''
+          chmod u+w $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/
+          cp ${./program-data/sddm-wallpaper.jpg} \
+            $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/your-custom-background.jpg
+        '';
+    });
+in {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -184,7 +204,10 @@
     gimp
     davinci-resolve
 
+    bibata-cursors
+
     inputs.nvf-config.packages.${pkgs.stdenv.hostPlatform.system}.default
+    sddm-astronaut
   ];
 
   fonts.packages = with pkgs; [
@@ -195,8 +218,38 @@
   programs.helium.enable = true;
 
   services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+
+  services.displayManager.sddm = {
+    enable = true;
+    package = pkgs.kdePackages.sddm;
+    theme = "sddm-astronaut-theme";
+
+    wayland.enable = true;
+
+    extraPackages = [
+      sddm-astronaut
+      pkgs.hyprland
+      pkgs.bibata-cursors
+
+      pkgs.kdePackages.qtmultimedia
+      pkgs.kdePackages.qtsvg # Safely handles any custom SVG icon layouts
+      pkgs.kdePackages.qt5compat # Resolves older backported component bindings
+      pkgs.kdePackages.qtdeclarative # Delivers the main engine framework for QML rendering
+    ];
+  };
+  environment.etc = {
+    "X11/Xresources".text = ''
+      Xcursor.theme: Bibata-Modern-Ice
+      Xcursor.size: 24
+    '';
+
+    # Forces the underlying display architecture to fallback directly onto Bibata
+    "icons/default/index.theme".text = ''
+      [Icon Theme]
+      Inherits=Bibata-Modern-Ice
+    '';
+  };
+
   services.power-profiles-daemon.enable = false; # Stop stupid KDE from trying to manage the power mode
 
   custom-modules.terminals.ghostty = {

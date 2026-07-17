@@ -79,7 +79,7 @@ ShellRoot {
                         font_family: Config.font_family;
                         color: Config.colors.mauve;
                         time_format: "HH:mm";
-                        date_format: "yyyy-MM-dd";
+                        date_format: "&nbsp;yyyy-MM-dd ";
                     }
                 }
             }
