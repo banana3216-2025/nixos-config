@@ -29,6 +29,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     quickshell = {
       url = "github:quickshell-mirror/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -58,6 +63,7 @@
     nvf-config,
     helium,
     catppuccin,
+    stylix,
     quickshell,
     zjstatus,
     qml-go-lsp,
@@ -80,6 +86,7 @@
         inputs.helium.nixosModules.default
         nix-flatpak.nixosModules.nix-flatpak
         home-manager.nixosModules.home-manager
+        stylix.nixosModules.stylix
         ({
           mainUser,
           inputs,
@@ -197,6 +204,7 @@
         inputs.helium.nixosModules.default
         nix-flatpak.nixosModules.nix-flatpak
         home-manager.nixosModules.home-manager
+        stylix.nixosModules.stylix
         ({
           mainUser,
           inputs,

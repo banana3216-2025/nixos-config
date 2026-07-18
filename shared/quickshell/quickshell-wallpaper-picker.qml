@@ -4,7 +4,6 @@ import QtQuick
 import Qt.labs.folderlistmodel 2.15
 import Quickshell.Io
 
-// ShellRoot or LazyRoot is typically used at the top level for windows in Quickshell
 ShellRoot {
     Process {
         id: wallpaperSetter
@@ -42,14 +41,12 @@ ShellRoot {
                     color: "#11111b"
 
                     Image {
-                        // Give the image a size so it actually shows up
                         anchors.fill: parent
                         anchors.margins: 5
                         fillMode: Image.PreserveAspectCrop
                         sourceSize.width: 200
                         sourceSize.height: 200
 
-                        // 2. LOAD OFF-THREAD (Prevents UI thread lockup while scrolling)
                         asynchronous: true
                         cache: true
 

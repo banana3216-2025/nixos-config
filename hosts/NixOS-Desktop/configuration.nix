@@ -4,7 +4,27 @@
   config,
   inputs,
   ...
-}: {
+}: let
+  sddm-astronaut =
+    (pkgs.sddm-astronaut.override {
+      embeddedTheme = "hyprland_kath";
+      themeConfig = {
+        HeaderTextColor = "#d5c4a1";
+        Font = "JetBrainsMono Nerd Font";
+        FontSize = "12";
+        FormPosition = "left";
+        Background = "Backgrounds/your-custom-background.jpg";
+      };
+    }).overrideAttrs (oldAttrs: {
+      installPhase =
+        oldAttrs.installPhase
+        + ''
+          chmod u+w $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/
+          cp ${./program-data/sddm-wallpaper.jpg} \
+            $out/share/sddm/themes/sddm-astronaut-theme/Backgrounds/your-custom-background.jpg
+        '';
+    });
+in {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -19,7 +39,6 @@
     ../../programs/gtk.nix
     ../../programs/hyprland.nix
     ../../programs/sober.nix
-    ../../programs/tmux.nix
     ../../programs/zellij.nix
 
     ../../shared/smb-share.nix
@@ -125,10 +144,6 @@
   # Set your time zone.
   time.timeZone = "America/Chicago";
 
-  services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
   # Configure keyboard layout
   services.xserver.xkb = {
     layout = "us,us";
@@ -202,9 +217,42 @@
     kicad
 
     inputs.nvf-config.packages.${pkgs.stdenv.hostPlatform.system}.default
+    sddm-astronaut
   ];
 
   programs.helium.enable = true;
+
+  services.xserver.enable = true;
+  services.displayManager.sddm = {
+    enable = true;
+    package = pkgs.kdePackages.sddm;
+    theme = "sddm-astronaut-theme";
+
+    wayland.enable = true;
+
+    extraPackages = [
+      sddm-astronaut
+      pkgs.hyprland
+      pkgs.bibata-cursors
+
+      pkgs.kdePackages.qtmultimedia
+      pkgs.kdePackages.qtsvg # Safely handles any custom SVG icon layouts
+      pkgs.kdePackages.qt5compat # Resolves older backported component bindings
+      pkgs.kdePackages.qtdeclarative # Delivers the main engine framework for QML rendering
+    ];
+  };
+  environment.etc = {
+    "X11/Xresources".text = ''
+      Xcursor.theme: Bibata-Modern-Ice
+      Xcursor.size: 24
+    '';
+
+    # Forces the underlying display architecture to fallback directly onto Bibata
+    "icons/default/index.theme".text = ''
+      [Icon Theme]
+      Inherits=Bibata-Modern-Ice
+    '';
+  };
 
   custom-modules.terminals.ghostty = {
     enable = true;
@@ -226,7 +274,6 @@
   custom-modules.shell.starship.enable = true;
   custom-modules.shell.starship.targetUsers = ["${mainUser}" "root"];
 
-  custom-modules.shell.tmux.enable = true;
   custom-modules.shell.zellij.enable = true;
   custom-modules.shell.zellij.targetUsers = ["${mainUser}" "root"];
 

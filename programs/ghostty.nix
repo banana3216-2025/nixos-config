@@ -37,7 +37,7 @@ in {
 
           size = lib.mkOption {
             type = lib.types.int;
-            default = 11;
+            default = 9;
             description = "sets the font size for ghostty terminal";
           };
         };

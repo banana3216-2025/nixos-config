@@ -10,55 +10,31 @@ in {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Enables GTK theme, icon, and cursor configurations via Home Manager.";
+      description = "Enables system-wide theming via Stylix.";
     };
 
     targetUsers = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = ["desktopUser"];
-      description = "Users to apply GTK theming settings to.";
+      description = "Users to apply settings to";
     };
   };
 
+  imports = [./stylix.nix];
+
   config = lib.mkIf cfg.enable {
-    programs.dconf.enable = true;
+    warnings = [
+      "The option custom-modules.desktop.gtk.enable is obsolete. Please Use stylix.nix and remove gtk.nix from your configuration.nix."
+    ];
 
-    home-manager.users = lib.genAttrs cfg.targetUsers (username: {
-      gtk = {
-        enable = true;
-
-        theme = {
-          name = "Adwaita-dark";
-          package = pkgs.gnome-themes-extra;
-        };
-
-        iconTheme = {
-          name = "Papirus-Dark";
-          package = pkgs.papirus-icon-theme;
-        };
-
-        cursorTheme = {
-          name = "Numix-Cursor";
-          package = pkgs.numix-cursor-theme;
-        };
-
-        gtk3.extraConfig = {
-          Settings = "gtk-application-prefer-dark-theme=1;";
-        };
-        gtk4.extraConfig = {
-          Settings = "gtk-application-prefer-dark-theme=1;";
+    # Safe structure that avoids the "does not exist" evaluation error
+    custom-modules = {
+      desktop = {
+        stylix = {
+          enable = true;
+          targetUsers = cfg.targetUsers;
         };
       };
-
-      home.sessionVariables = {
-        GTK_THEME = "Tokyonight-Dark";
-      };
-
-      dconf.settings = {
-        "org/gnome/desktop/interface" = {
-          color-scheme = "prefer-dark";
-        };
-      };
-    });
+    };
   };
 }
