@@ -472,11 +472,11 @@
         "qml-go-lsp": "qml-go-lsp"
       },
       "locked": {
-        "lastModified": 1784412887,
-        "narHash": "sha256-EwagMb7AVf8BEKs5265NvnG/efNcvL4NfyR0Td+bX/4=",
+        "lastModified": 1784429463,
+        "narHash": "sha256-QrXHnWbDE+g+Qpy1L96EGeSPKmWkztiPuMGT4SWaoWU=",
         "owner": "banana3216-2025",
         "repo": "nvf-config",
-        "rev": "26ad776bbde3aabd880c682c97d75c06e4a031fc",
+        "rev": "86eacdeee635d847ea178630e19d7ed316a6eef7",
         "type": "github"
       },
       "original": {
