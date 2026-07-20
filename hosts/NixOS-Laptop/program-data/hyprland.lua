@@ -12,36 +12,25 @@
 
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
 hl.monitor({
-    output     = "*",
-    mode       = "1920x1080@60",
-    position   = "1920x0",
-    scale      = "1.0",
+    output     = "DP-1",
+    mode       = "preferred",
+    position   = "auto",
+    scale      = 1.0,
+    mirror     = "eDP-1",
 })
 
 hl.monitor({
     output   = "eDP-1",
     mode     = "1920x1080@60",
     position = "0x0",
-    scale    = "1.0",
+    scale    = 1.0,
 })
 
-local INTERNAL_MONITOR = "eDP-1"
-local EXTERNAL_MONITOR = "HDMI-A-1"
-
-local function update_monitors()
-    if hl.get_monitor(EXTERNAL_MONITOR) ~= nil then
-        hl.monitor({ output = INTERNAL_MONITOR, disabled = true })
-        hl.monitor({ output = EXTERNAL_MONITOR, mode = "preferred", position = "0x0", scale = 1 })
-    else
-        hl.monitor({ output = INTERNAL_MONITOR, mode = "preferred", position = "0x0", scale = 1 })
-    end
-end
-
-hl.on("monitor.added", update_monitors)
-hl.on("monitor.removed", update_monitors)
-
-hl.on("hyprland.start", update_monitors)
-
+hl.config({
+    cursor = {
+        no_hardware_cursors = true
+    }
+})
 
 ---------------------
 ---- MY PROGRAMS ----

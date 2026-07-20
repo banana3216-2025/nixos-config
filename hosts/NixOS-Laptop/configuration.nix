@@ -36,7 +36,7 @@ in {
     ../../programs/wofi.nix
     ../../programs/thunar.nix
     ../../programs/swww.nix
-    ../../programs/gtk.nix
+    ../../programs/stylix.nix
     ../../programs/hyprland.nix
     ../../programs/sober.nix
     ../../programs/zellij.nix
@@ -277,7 +277,7 @@ in {
     NOTIFICATION = "qs -d -p /etc/nixos/shared/quickshell/quickshell-notification.qml";
   };
 
-  custom-modules.desktop.gtk = {
+  custom-modules.desktop.stylix = {
     enable = true;
     targetUsers = ["${mainUser}"];
   };

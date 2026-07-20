@@ -27,7 +27,6 @@ in {
       "The option custom-modules.desktop.gtk.enable is obsolete. Please Use stylix.nix and remove gtk.nix from your configuration.nix."
     ];
 
-    # Safe structure that avoids the "does not exist" evaluation error
     custom-modules = {
       desktop = {
         stylix = {

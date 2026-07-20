@@ -151,6 +151,7 @@
         inputs.helium.nixosModules.default
         nix-flatpak.nixosModules.nix-flatpak
         home-manager.nixosModules.home-manager
+        stylix.nixosModules.stylix
         ({
           mainUser,
           inputs,
