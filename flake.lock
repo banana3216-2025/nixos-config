@@ -103,6 +103,26 @@
         "type": "github"
       }
     },
+    "driftwm": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1784975730,
+        "narHash": "sha256-sjvuS8RBCntcfabmOV5Qd/S+ejtyT/38MDEVjXqezRU=",
+        "owner": "malbiruk",
+        "repo": "driftwm",
+        "rev": "21a593f362ed8026870b83bb16debd1c02ed2545",
+        "type": "github"
+      },
+      "original": {
+        "owner": "malbiruk",
+        "repo": "driftwm",
+        "type": "github"
+      }
+    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -322,6 +342,22 @@
         "type": "github"
       }
     },
+    "libnbtplusplus": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1772016279,
+        "narHash": "sha256-7itkptyjoRcXfGLwg1/jxajetZ3a4mDc66+w4X6yW8s=",
+        "owner": "PrismLauncher",
+        "repo": "libnbtplusplus",
+        "rev": "687e43031df0dc641984b4256bcca50d5b3f7de3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "PrismLauncher",
+        "repo": "libnbtplusplus",
+        "type": "github"
+      }
+    },
     "mnw": {
       "locked": {
         "lastModified": 1780772958,
@@ -472,11 +508,11 @@
         "qml-go-lsp": "qml-go-lsp"
       },
       "locked": {
-        "lastModified": 1784429463,
-        "narHash": "sha256-QrXHnWbDE+g+Qpy1L96EGeSPKmWkztiPuMGT4SWaoWU=",
+        "lastModified": 1785360003,
+        "narHash": "sha256-8+mvzbDBSpcX4yfzoDRe3PDk3bChT7YlSkaUGsE6Yuc=",
         "owner": "banana3216-2025",
         "repo": "nvf-config",
-        "rev": "86eacdeee635d847ea178630e19d7ed316a6eef7",
+        "rev": "5f3f8f0c2412d806ef6ad63df621728158e7ca45",
         "type": "github"
       },
       "original": {
@@ -504,6 +540,27 @@
       "original": {
         "owner": "notashelf",
         "repo": "nvf",
+        "type": "github"
+      }
+    },
+    "prismlauncher": {
+      "inputs": {
+        "libnbtplusplus": "libnbtplusplus",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1785234030,
+        "narHash": "sha256-GJOPc0k4g5r+qii0hvyg2j9ZAibMf19xTROgO71oKaA=",
+        "owner": "PrismLauncher",
+        "repo": "PrismLauncher",
+        "rev": "7174c26a90662fdedf736b7457b13a1a25f81f4e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "PrismLauncher",
+        "repo": "PrismLauncher",
         "type": "github"
       }
     },
@@ -570,12 +627,14 @@
     "root": {
       "inputs": {
         "catppuccin": "catppuccin",
+        "driftwm": "driftwm",
         "helium": "helium",
         "home-manager": "home-manager",
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs",
         "nvf": "nvf",
         "nvf-config": "nvf-config",
+        "prismlauncher": "prismlauncher",
         "qml-go-lsp": "qml-go-lsp_2",
         "quickshell": "quickshell",
         "stylix": "stylix",
@@ -779,11 +838,11 @@
     "wallpapers": {
       "flake": false,
       "locked": {
-        "lastModified": 1779923965,
-        "narHash": "sha256-5epyVy3tNJQ8CyqTq4p3uDGYOqm9WnEk4r5TnSm5QlY=",
+        "lastModified": 1785189534,
+        "narHash": "sha256-yQgyY/trvO5+ugKTXCaL5E3KzJJAcIjkTmeRbPiFB1s=",
         "owner": "banana3216-2025",
         "repo": "wallpapers",
-        "rev": "f562e1049e75b65afc89f24c69b929baffd9d08b",
+        "rev": "56f3e88f76d87b80ca8d0c4cd4e124c6f4a2049c",
         "type": "github"
       },
       "original": {

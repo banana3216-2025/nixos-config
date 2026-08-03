@@ -4,52 +4,40 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nvf = {
-      url = "github:NotAShelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nvf.url = "github:NotAShelf/nvf";
+    nvf.inputs.nixpkgs.follows = "nixpkgs";
 
-    nvf-config = {
-      url = "github:banana3216-2025/nvf-config";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nvf-config.url = "github:banana3216-2025/nvf-config";
+    nvf-config.inputs.nixpkgs.follows = "nixpkgs";
 
-    helium = {
-      url = "github:oxcl/nix-flake-helium-browser";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    helium.url = "github:oxcl/nix-flake-helium-browser";
+    helium.inputs.nixpkgs.follows = "nixpkgs";
 
-    catppuccin = {
-      url = "github:catppuccin/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    catppuccin.url = "github:catppuccin/nix";
+    catppuccin.inputs.nixpkgs.follows = "nixpkgs";
 
-    stylix = {
-      url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    stylix.url = "github:danth/stylix";
+    stylix.inputs.nixpkgs.follows = "nixpkgs";
 
-    quickshell = {
-      url = "github:quickshell-mirror/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    quickshell.url = "github:quickshell-mirror/quickshell";
+    quickshell.inputs.nixpkgs.follows = "nixpkgs";
 
-    zjstatus = {
-      url = "github:dj95/zjstatus";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    driftwm.url = "github:malbiruk/driftwm";
+    driftwm.inputs.nixpkgs.follows = "nixpkgs";
 
-    qml-go-lsp = {
-      url = "github:cushycush/qml-language-server";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    zjstatus.url = "github:dj95/zjstatus";
+    zjstatus.inputs.nixpkgs.follows = "nixpkgs";
+
+    qml-go-lsp.url = "github:cushycush/qml-language-server";
+    qml-go-lsp.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+
+    prismlauncher.url = "github:PrismLauncher/PrismLauncher";
+    prismlauncher.inputs.nixpkgs.follows = "nixpkgs";
 
     wallpapers.url = "github:banana3216-2025/wallpapers";
     wallpapers.flake = false;
@@ -65,9 +53,11 @@
     catppuccin,
     stylix,
     quickshell,
+    driftwm,
     zjstatus,
     qml-go-lsp,
     nix-flatpak,
+    prismlauncher,
     wallpapers,
     ...
   } @ inputs: {
@@ -87,31 +77,21 @@
         nix-flatpak.nixosModules.nix-flatpak
         home-manager.nixosModules.home-manager
         stylix.nixosModules.stylix
+        driftwm.nixosModules.default
         ({
           mainUser,
           inputs,
           pkgs,
           ...
         }: {
-          fonts.packages = with pkgs; [
-            nerd-fonts.symbols-only
-            nerd-fonts.jetbrains-mono
-          ];
-
-          environment.systemPackages = with pkgs; [
-            eza
-            btop
-            git
-            gh
-          ];
-
-          # Injects the zjstatus flake into the nixpkgs for convenience
           nixpkgs.overlays = [
+            # adds packages under names
             (final: prev: {
               zjstatus = inputs.zjstatus.packages.${prev.stdenv.hostPlatform.system}.default;
             })
 
             inputs.quickshell.overlays.default
+            inputs.prismlauncher.overlays.default
           ];
 
           home-manager.useGlobalPkgs = true;

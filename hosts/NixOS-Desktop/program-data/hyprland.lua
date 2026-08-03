@@ -34,7 +34,7 @@ local terminal = "ghostty"
 -- local fileManager       = "yazi"
 local menu = "wofi --show drun"
 local bar = "eval $BAR"
-local notifications = "eval $NOTIFICATION"
+local notifications = "sh -c 'sleep 0.5; eval \"$NOTIFICATION\"'" -- adds a delay so the notification center always opens after the bar
 local wallpaper_manager = "$WALLPAPER_MANAGER"
 
 -------------------
@@ -143,14 +143,14 @@ hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } 
 hl.curve("easeInOutCubic", { type = "bezier", points = { { 0.65, 0.05 }, { 0.36, 1 } } })
 hl.curve("linear", { type = "bezier", points = { { 0, 0 }, { 1, 1 } } })
 hl.curve("almostLinear", { type = "bezier", points = { { 0.5, 0.5 }, { 0.75, 1 } } })
-hl.curve("quick", { type = "bezier", points = { { 0.15, 0 }, { 0.1, 1 } } })
+hl.curve("quick", { type = "bezier", points = { { 0.25, -0.05 }, { 0.00, 1.00 } } })
 
 -- Default springs
 hl.curve("easy", { type = "spring", mass = 1, stiffness = 71.2633, dampening = 15.8273644 })
 
 -- My Animations
 hl.curve("window", { type = "bezier", points = { { 0.45, 1.20 }, { 0.70, 1.00 } } })
-hl.curve("workspace-switch", { type = "bezier", points = { { 0.70, 0.00 }, { 0.50, 1.0 } } })
+hl.curve("workspace-switch", { type = "bezier", points = { { 0.00, 0.60 }, { 0.25, 0.90 } } })
 
 hl.animation({ leaf = "global", enabled = true, speed = 10.0, bezier = "default" })
 hl.animation({ leaf = "border", enabled = true, speed = 5.39, bezier = "easeOutQuint" })
@@ -358,6 +358,11 @@ hl.define_submap("session", function()
 	)
 	hl.bind("S", hl.dsp.exec_cmd("shutdown now"))
 	hl.bind("R", hl.dsp.exec_cmd("reboot"))
+
+	hl.bind("N", function()
+		hl.dispatch(hl.dsp.exec_cmd("eval $NOTIFICATION_OPEN"))
+		hl.dsp.submap("reset")
+	end)
 
 	-- Allow to move to other modes
 	hl.bind(mainMod .. " + B", hl.dsp.submap("move"))

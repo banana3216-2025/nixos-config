@@ -205,6 +205,7 @@ in {
     git
     gh
     fzf
+    eza
     fastfetch
     btop
     vim
@@ -218,6 +219,11 @@ in {
 
     inputs.nvf-config.packages.${pkgs.stdenv.hostPlatform.system}.default
     sddm-astronaut
+  ];
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.symbols-only
+    nerd-fonts.jetbrains-mono
   ];
 
   programs.helium.enable = true;
@@ -285,6 +291,7 @@ in {
 
     BAR = "qs -d -p /etc/nixos/shared/quickshell/quickshell-bar.qml"; # Map the system bar to quickshell bar
     NOTIFICATION = "qs -d -p /etc/nixos/shared/quickshell/quickshell-notification.qml";
+    NOTIFICATION_OPEN = "qs -p /etc/nixos/shared/quickshell/quickshell-notification.qml ipc call notifications toggle";
   };
 
   custom-modules.desktop.gtk = {
@@ -299,6 +306,8 @@ in {
 
   custom-modules.tools.my-nas.enable = true;
 
+  programs.driftwm.enable = true; # Testing Out DriftWM
+
   specialisation = {
     gamer-mode = {
       inheritParentConfig = true;
@@ -308,6 +317,8 @@ in {
         environment.systemPackages = with pkgs; [
           steam
           discord
+          prismlauncher
+          supertuxkart
         ];
 
         # Changing bootloader label for clarity
