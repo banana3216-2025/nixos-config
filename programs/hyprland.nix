@@ -15,7 +15,12 @@ in {
     targetUsers = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = ["desktopUser"];
-      description = "Users to apply hyprland to";
+      description = "Users to apply hyprland and keybinds to";
+    };
+    useSharedKeybinds = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "switches hyprland to use the shared keybind configuration";
     };
   };
 
@@ -37,12 +42,19 @@ in {
     };
 
     home-manager.users = lib.genAttrs cfg.targetUsers (username: {
+      # 1. Conditionally write the shared keybinds file directly to Home Manager
+      xdg.configFile = lib.mkIf cfg.useSharedKeybinds {
+        "hypr/hyprland-keybinds.lua".text = builtins.readFile ../shared/hyprland-keybinds.lua;
+      };
+
       wayland.windowManager.hyprland = {
         enable = true;
 
-        extraConfig = builtins.readFile (
-          ../hosts + "/${config.networking.hostName}/program-data/hyprland.lua"
-        );
+        # 2. Append the require string conditionally inside the main configuration block
+        extraConfig = lib.mkMerge [
+          (lib.optionalString cfg.useSharedKeybinds "\nrequire(\"hyprland-keybinds\")\n")
+          (builtins.readFile (../hosts + "/${config.networking.hostName}/program-data/hyprland.lua"))
+        ];
       };
     });
   };

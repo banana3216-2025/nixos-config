@@ -210,6 +210,7 @@ in {
   custom-modules.desktop.hyprland = {
     enable = true;
     targetUsers = ["${mainUser}"];
+    useSharedKeybinds = true;
   };
 
   custom-modules.tools.my-nas.enable = true;
