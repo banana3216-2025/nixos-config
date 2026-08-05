@@ -289,14 +289,16 @@ ShellRoot {
                                     id: topbar;
 
                                     Text {
-                                        Layout.fillWidth: true;
-
                                         textFormat: Text.RichText
                                         color: Config.colors.green;
                                         font.family: Config.font_family;
                                         font.pixelSize: Config.font_size;
 
                                         text: `<span style="color: ${model.urgency === NotificationUrgency.Critical ? Config.colors.peach : Config.colors.green};"></span><span style="color: ${Config.colors.crust}; background-color: ${model.urgency === NotificationUrgency.Critical ? Config.colors.peach : Config.colors.green};">󰍡 </span><span style="color: ${model.urgency === NotificationUrgency.Critical ? Config.colors.peach : Config.colors.green}; background-color: ${Config.colors.surface2};">&nbsp;${model.summary}</span><span style="color: ${Config.colors.surface2};"></span>`;
+                                    }
+
+                                    Item {
+                                        Layout.fillWidth: true;
                                     }
 
                                     Text {

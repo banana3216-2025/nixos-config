@@ -361,7 +361,7 @@ hl.define_submap("session", function()
 
 	hl.bind("N", function()
 		hl.dispatch(hl.dsp.exec_cmd("eval $NOTIFICATION_OPEN"))
-		hl.dsp.submap("reset")
+		hl.dispatch(hl.dsp.submap("reset"))
 	end)
 
 	-- Allow to move to other modes
