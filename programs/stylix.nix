@@ -46,6 +46,8 @@ in {
       targets = {
         gtk.enable = true;
         gnome.enable = true;
+        console.enable = true;
+        kmscon.enable = true;
       };
     };
 

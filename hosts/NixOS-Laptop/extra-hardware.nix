@@ -4,11 +4,7 @@
   ...
 }: {
   # Support for nvidia graphics cards
-  boot.kernelParams = [
-    "nvidia-drm.modeset=1"
-    "nvidia-drm.fbdev=1"
-  ];
-
+  boot.kernelParams = ["nvidia-drm.fbdev=1"];
   boot.initrd.kernelModules = [
     "nvidia"
     "nvidia_modeset"
@@ -20,18 +16,14 @@
     options nvidia NVreg_RegistryDwords="PowerMizerEnable=0x1; PerfLevelSrc=0x2222; PowerMizerDefaultAC=0x1"
   '';
 
-  environment.sessionVariables = {
-    GBM_BACKEND = "nvidia-drm";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    NIXOS_OZONE_WL = "1";
-  };
+  environment.sessionVariables = {NIXOS_OZONE_WL = "1";};
 
   services.xserver.videoDrivers = ["nvidia"];
 
   hardware.nvidia = {
     modesetting.enable = true;
-    powerManagement.enable = false;
-    open = false;
+    powerManagement.enable = true;
+    open = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
 
     powerManagement.finegrained = true;
@@ -53,6 +45,9 @@
       vulkan-loader
       vulkan-validation-layers
       vulkan-extension-layer
+      libva-vdpau-driver
+      libvdpau-va-gl
+      nvidia-vaapi-driver
     ];
   };
 

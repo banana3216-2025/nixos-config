@@ -54,6 +54,14 @@ in {
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  services.kmscon = {
+    enable = true;
+    config = {
+      hwaccel = true;
+      font-engine = "pixman";
+    };
+  };
+
   networking.hostName = "NixOS-Laptop"; # Define your hostname.
 
   # Enable networking
@@ -200,6 +208,13 @@ in {
   environment.variables = {
     BAR = "qs -d -p /etc/nixos/hosts/NixOS-Laptop/program-data/quickshell-bar.qml"; # Map the system bar to quickshell bar
     NOTIFICATION = "qs -d -p /etc/nixos/shared/quickshell/quickshell-notification.qml";
+
+    EDITOR = "nvim";
+  };
+
+  environment.sessionVariables = {
+    LD_LIBRARY_PATH = "/run/opengl-driver/lib:/run/opengl-driver-32/lib";
+    XDG_DATA_DIRS = ["/run/opengl-driver/share"];
   };
 
   custom-modules.desktop.stylix = {

@@ -90,11 +90,7 @@ in {
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Support for nvidia graphics cards
-  boot.kernelParams = [
-    "nvidia-drm.modeset=1"
-    "nvidia-drm.fbdev=1"
-  ];
-
+  boot.kernelParams = ["nvidia-drm.fbdev=1"];
   boot.initrd.kernelModules = [
     "nvidia"
     "nvidia_modeset"
@@ -116,8 +112,8 @@ in {
 
   hardware.nvidia = {
     modesetting.enable = true;
-    powerManagement.enable = false;
-    open = false;
+    powerManagement.enable = true;
+    open = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
@@ -126,6 +122,11 @@ in {
     enable32Bit = true;
     extraPackages = with pkgs; [
       vulkan-loader
+      vulkan-validation-layers
+      vulkan-extension-layer
+      libva-vdpau-driver
+      libvdpau-va-gl
+      nvidia-vaapi-driver
     ];
   };
 
