@@ -365,6 +365,18 @@ hl.define_submap("session", function()
 		hl.dispatch(hl.dsp.submap("reset"))
 	end)
 
+	hl.bind(
+		"code:21" --[[ = ]],
+		hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
+		{ locked = true, repeating = true }
+	)
+	hl.bind(
+		"code:20" --[[ - ]],
+		hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
+		{ locked = true, repeating = true }
+	)
+	hl.bind("0", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true, repeating = true })
+
 	-- Enter special layout mode
 	hl.bind(mainMod .. " + L", hl.dsp.submap("layout"))
 
