@@ -198,7 +198,8 @@ hl.config({
 -- See https://wiki.hypr.land/Configuring/Layouts/Master-Layout/ for more
 hl.config({
 	master = {
-		new_status = "master",
+		orientation = "center",
+		mfact = 0.5,
 	},
 })
 
@@ -364,11 +365,28 @@ hl.define_submap("session", function()
 		hl.dispatch(hl.dsp.submap("reset"))
 	end)
 
+	-- Enter special layout mode
+	hl.bind(mainMod .. " + L", hl.dsp.submap("layout"))
+
 	-- Allow to move to other modes
 	hl.bind(mainMod .. " + B", hl.dsp.submap("move"))
 	hl.bind(mainMod .. " + R", hl.dsp.submap("resize"))
 
 	-- Bind submap escape keybindings
+	hl.bind("escape", hl.dsp.submap("reset"))
+end)
+
+hl.define_submap("layout", function()
+	hl.bind("D", function()
+		hl.config({ general = { layout = "dwindle" } })
+	end) -- switch to default layout
+	hl.bind("M", function()
+		hl.config({ general = { layout = "master" } })
+	end) -- swithc to master layout, one big window in the center and the other windows stack verically on the left and right;
+	hl.bind("S", function()
+		hl.config({ general = { layout = "scrolling" } })
+	end) -- switch to infinite scrolling layout
+
 	hl.bind("escape", hl.dsp.submap("reset"))
 end)
 

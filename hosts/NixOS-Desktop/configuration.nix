@@ -184,7 +184,7 @@ in {
   users.users.${mainUser} = {
     isNormalUser = true;
     description = "user";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "uinput"];
   };
 
   programs.git = {
@@ -226,6 +226,13 @@ in {
     nerd-fonts.symbols-only
     nerd-fonts.jetbrains-mono
   ];
+
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true; # only needed for Wayland -- omit this when using with Xorg
+    openFirewall = true;
+  };
 
   programs.helium.enable = true;
 
