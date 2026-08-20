@@ -148,6 +148,20 @@ in {
     nerd-fonts.jetbrains-mono
   ];
 
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [
+      gutenprint
+      epson-escpr2
+    ];
+  };
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
   programs.helium.enable = true;
 
   services.xserver.enable = true;
@@ -229,6 +243,8 @@ in {
   };
 
   custom-modules.tools.my-nas.enable = true;
+
+  custom-modules.games.sober.enable = true;
 
   # This value determines the NixOS release from which the default
   system.stateVersion = "26.05";
