@@ -212,6 +212,10 @@ in {
     vim
     quickshell
     bat
+    virt-viewer
+    grim
+    slurp
+    wl-clipboard
 
     vscode
     gimp

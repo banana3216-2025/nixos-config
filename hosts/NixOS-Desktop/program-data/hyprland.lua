@@ -170,6 +170,21 @@ hl.animation({ leaf = "workspaces", enabled = true, speed = 4.00, bezier = "work
 -- hl.animation({ leaf = "workspacesOut", enabled = true,  speed = 1.94, bezier = "almostLinear",     style = "fade" });
 hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7.00, bezier = "quick" })
 
+hl.animation({
+	leaf = "specialWorkspaceIn",
+	enabled = true,
+	speed = 4.00,
+	bezier = "workspace-switch",
+	style = "slide top",
+})
+hl.animation({
+	leaf = "specialWorkspaceOut",
+	enabled = true,
+	speed = 4.00,
+	bezier = "workspace-switch",
+	style = "slide bottom",
+})
+
 -- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 -- "Smart gaps" / "No gaps when only"
 -- uncomment all if you wish to use that.
@@ -282,6 +297,9 @@ hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + K", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + J", hl.dsp.focus({ direction = "down" }))
+
+-- Use print screen key to take screenshot
+hl.bind("PRINT", hl.dsp.exec_cmd([[grim -g "$(slurp)" - | wl-copy]]))
 
 -- resize keybindings
 hl.bind(mainMod .. " + R", hl.dsp.submap("resize"))
