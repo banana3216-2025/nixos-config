@@ -3,8 +3,10 @@
   pkgs,
   ...
 }: {
+  boot.resumeDevice = "/dev/disk/by-uuid/4e13d996-a9db-4b9d-a97f-4005cbf64085";
+
   # Support for nvidia graphics cards
-  boot.kernelParams = ["nvidia-drm.fbdev=1"];
+  boot.kernelParams = ["nvidia-drm.fbdev=1" "resume_offset=59627520"];
   boot.initrd.kernelModules = [
     "nvidia"
     "nvidia_modeset"
