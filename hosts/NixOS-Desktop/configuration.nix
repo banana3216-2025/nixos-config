@@ -301,9 +301,8 @@ in {
   environment.variables = {
     EDITOR = "nvim";
 
-    BAR = "qs -d -p /etc/nixos/shared/quickshell/quickshell-bar.qml"; # Map the system bar to quickshell bar
-    NOTIFICATION = "qs -d -p /etc/nixos/shared/quickshell/quickshell-notification.qml";
-    NOTIFICATION_OPEN = "qs -p /etc/nixos/shared/quickshell/quickshell-notification.qml ipc call notifications toggle";
+    SHELL = "qs -d -p /etc/nixos/shared/quickshell/shell.qml";
+    NOTIFICATION_OPEN = "qs -p /etc/nixos/shared/quickshell/shell.qml ipc call notifications toggle";
   };
 
   custom-modules.desktop.gtk = {

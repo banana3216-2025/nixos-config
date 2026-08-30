@@ -220,8 +220,8 @@ in {
   custom-modules.desktop.swww.enable = true;
 
   environment.variables = {
-    BAR = "qs -d -p /etc/nixos/hosts/NixOS-Laptop/program-data/quickshell-bar.qml"; # Map the system bar to quickshell bar
-    NOTIFICATION = "qs -d -p /etc/nixos/shared/quickshell/quickshell-notification.qml";
+    SHELL = "qs -d -p /etc/nixos/shared/quickshell/shell.qml";
+    NOTIFICATION_OPEN = "qs -p /etc/nixos/shared/quickshell/shell.qml ipc call notifications toggle";
 
     EDITOR = "nvim";
   };

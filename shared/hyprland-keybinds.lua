@@ -1,8 +1,6 @@
 local terminal = "ghostty"
 local fileManager = "yazi"
 local menu = "wofi --show drun"
-local bar = "eval $BAR"
-local notifications = "eval $NOTIFICATION"
 local wallpaper_manager = "eval $WALLPAPER_MANAGER"
 
 ---------------
@@ -144,7 +142,10 @@ hl.define_submap("session", function()
 	hl.bind("S", hl.dsp.exec_cmd("shutdown now"))
 	hl.bind("R", hl.dsp.exec_cmd("reboot"))
 
-	hl.bind("C", hl.dsp.exec_cmd("eval $NOTIFICATION_OPEN"))
+	hl.bind("N", function()
+		hl.dispatch(hl.dsp.exec_cmd("eval $NOTIFICATION_OPEN"))
+		hl.dispatch(hl.dsp.submap("reset"))
+	end)
 
 	-- Allow to move to other modes
 	hl.bind(mainMod .. " + B", hl.dsp.submap("move"))

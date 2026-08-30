@@ -33,8 +33,7 @@ hl.monitor({
 local terminal = "ghostty"
 -- local fileManager       = "yazi"
 local menu = "wofi --show drun"
-local bar = "eval $BAR"
-local notifications = "sh -c 'sleep 0.5; eval \"$NOTIFICATION\"'" -- adds a delay so the notification center always opens after the bar
+local shell = "eval $SHELL"
 local wallpaper_manager = "$WALLPAPER_MANAGER"
 
 -------------------
@@ -52,8 +51,7 @@ local wallpaper_manager = "$WALLPAPER_MANAGER"
 
 hl.on("hyprland.start", function()
 	hl.exec_cmd(wallpaper_manager)
-	hl.exec_cmd(bar)
-	hl.exec_cmd(notifications)
+	hl.exec_cmd(shell)
 
 	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
 	hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
