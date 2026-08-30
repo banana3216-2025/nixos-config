@@ -39,8 +39,7 @@ hl.config({
 local terminal = "ghostty"
 local fileManager = "yazi"
 local menu = "wofi --show drun"
-local bar = "eval $BAR"
-local notifications = "eval $NOTIFICATION"
+local shell = "eval $SHELL"
 local wallpaper_manager = "eval $WALLPAPER_MANAGER"
 
 -------------------
@@ -58,9 +57,10 @@ local wallpaper_manager = "eval $WALLPAPER_MANAGER"
 
 hl.on("hyprland.start", function()
 	hl.exec_cmd(wallpaper_manager)
-	hl.exec_cmd(bar)
-	hl.exec_cmd(notifications)
+	hl.exec_cmd(shell)
+
 	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+	hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
 end)
 
 -------------------------------
