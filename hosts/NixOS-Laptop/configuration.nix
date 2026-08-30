@@ -220,7 +220,7 @@ in {
   custom-modules.desktop.swww.enable = true;
 
   environment.variables = {
-    SHELL = "qs -d -p /etc/nixos/shared/quickshell/shell.qml";
+    DESKTOP_SHELL = "qs -d -p /etc/nixos/shared/quickshell/shell.qml";
     NOTIFICATION_OPEN = "qs -p /etc/nixos/shared/quickshell/shell.qml ipc call notifications toggle";
 
     EDITOR = "nvim";

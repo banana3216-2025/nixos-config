@@ -39,7 +39,7 @@ hl.config({
 local terminal = "ghostty"
 local fileManager = "yazi"
 local menu = "wofi --show drun"
-local shell = "eval $SHELL"
+local shell = "eval $DESKTOP_SHELL"
 local wallpaper_manager = "eval $WALLPAPER_MANAGER"
 
 -------------------
