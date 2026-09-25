@@ -23,6 +23,7 @@ hl.monitor({
 	position = "1920x0",
 	scale = "1.0",
 	transform = 1,
+	disabled = true,
 })
 
 ---------------------
@@ -253,6 +254,10 @@ hl.config({
 		touchpad = {
 			natural_scroll = false,
 		},
+	},
+
+	cursor = {
+		hide_on_key_press = true,
 	},
 })
 

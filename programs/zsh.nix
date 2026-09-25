@@ -10,7 +10,7 @@ in {
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Enable the kitty terminal and  settings for root and users.";
+      description = "Enable the zsh shell and its settings";
     };
 
     targetUsers = lib.mkOption {
@@ -44,6 +44,14 @@ in {
         syntaxHighlighting.enable = true;
 
         shellAliases = cfg.aliases;
+
+        initContent = ''
+          # Alt + Vim movements for command line navigation
+          bindkey '\eh' backward-char          # Alt + h
+          bindkey '\el' forward-char           # Alt + l
+          bindkey '\ek' up-line-or-history     # Alt + k
+          bindkey '\ej' down-line-or-history   # Alt + j
+        '';
 
         history = {
           size = 10000;

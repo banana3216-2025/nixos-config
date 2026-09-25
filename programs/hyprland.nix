@@ -39,8 +39,9 @@ in {
 
     xdg.portal = {
       enable = true;
-      extraPortals = [pkgs.xdg-desktop-portal-hyprland];
-      config.common.default = "*";
+      extraPortals = [pkgs.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk];
+      config.hyprland.default = ["hyprland" "gtk"];
+      config.common.default = ["hyprland" "gtk"];
     };
 
     home-manager.users = lib.genAttrs cfg.targetUsers (username: {

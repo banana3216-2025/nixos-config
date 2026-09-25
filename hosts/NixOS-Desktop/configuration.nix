@@ -80,6 +80,20 @@ in {
     };
   };
 
+  fileSystems."/mnt/windows" = {
+    device = "/dev/disk/by-uuid/F0C693B5C6937A94";
+    fsType = "ntfs3";
+    options = [
+      "nofail"
+      "rw"
+      "dmask=0022" # Sets directory permissions (755)
+      "fmask=0022" # Sets file permissions (755)
+      "uid=${toString 1000}"
+      "gid=${toString 100}"
+      "x-systemd.automount"
+    ];
+  };
+
   # enable plymouth with my theme
   custom-modules.boot.nix-plymouth-theme.enable = true;
 
@@ -184,7 +198,7 @@ in {
   users.users.${mainUser} = {
     isNormalUser = true;
     description = "user";
-    extraGroups = ["networkmanager" "wheel" "uinput"];
+    extraGroups = ["networkmanager" "wheel" "uinput" "cdrom" "disk"];
   };
 
   programs.git = {
@@ -216,6 +230,8 @@ in {
     grim
     slurp
     wl-clipboard
+    cliphist
+    feh
 
     vscode
     gimp
@@ -231,12 +247,21 @@ in {
     nerd-fonts.jetbrains-mono
   ];
 
-  services.sunshine = {
+  xdg.mime = {
     enable = true;
-    autoStart = true;
-    capSysAdmin = true; # only needed for Wayland -- omit this when using with Xorg
-    openFirewall = true;
+    defaultApplications = {
+      "text/html" = "heluim.desktop";
+      "x-scheme-handler/http" = "helium.desktop";
+      "x-scheme-handler/https" = "helium.desktop";
+      "x-scheme-handler/about" = "helium.desktop";
+      "x-scheme-handler/unknown" = "helium.desktop";
+
+      "image/*" = "feh.desktop";
+      "inode/directory" = "yazi.desktop";
+    };
   };
+
+  programs.zoxide.enable = true;
 
   programs.helium.enable = true;
 
@@ -259,6 +284,7 @@ in {
       pkgs.kdePackages.qtdeclarative # Delivers the main engine framework for QML rendering
     ];
   };
+
   environment.etc = {
     "X11/Xresources".text = ''
       Xcursor.theme: Bibata-Modern-Ice
@@ -324,6 +350,13 @@ in {
       inheritParentConfig = true;
       configuration = {
         custom-modules.games.sober.enable = true;
+
+        services.sunshine = {
+          enable = true;
+          autoStart = true;
+          capSysAdmin = true; # only needed for Wayland -- omit this when using with Xorg
+          openFirewall = true;
+        };
 
         environment.systemPackages = with pkgs; [
           steam
