@@ -1,0 +1,93 @@
+#sidebar-main {
+  order: 99 !important;
+}
+
+#PersonalToolbar,
+#firefox-view-button,
+#alltabs-button,
+#back-button,
+#forward-button,
+#vertical-spacer,
+#unified-extensions-button,
+.titlebar-buttonbox-container {
+  display: none !important;
+}
+
+#urlbar-container {
+  margin: 0px !important;
+}
+
+sidebar-footer,
+#sidebar-footer,
+.sidebar-footer {
+  display: none !important;
+}
+
+/* Force-hide the specific buttons inside the sidebar toolbar */
+#sidebar-footer button,
+#sidebar-box button[title*="History"],
+#sidebar-box button[title*="history"],
+button[id*="history"] {
+  display: none !important;
+}
+
+/* Ensure the Customize/Edit pencil button remains hidden */
+button[title*="Customize"],
+button[title*="Edit"],
+.customize-button {
+  display: none !important;
+}
+
+/* Dacttal Config stuff */
+#root.root {
+  --tabs-height: 36px;
+}
+#root.root {
+  --tabs-inner-gap: 8px;
+}
+#root.root {
+  --tabs-margin: 4px;
+}
+#root.root {
+  --tabs-font: 16px sans-serif;
+}
+#root.root {
+  --tabs-count-font: 16px sans-serif;
+}
+#root.root {
+  --general-margin: 4px;
+}
+#root.root {
+  --general-border-radius: 0px;
+}
+
+.Tab[data-active="true"] .body {
+  border: 2px solid #ef944dff !important;
+  border-radius: 0px;
+}
+
+.NavigationBar .main-items .nav-item[data-class="panel"] .name-box {
+  border-width: 2px !important;
+}
+
+#root[data-act-el-color-scheme="dark"] {
+  --active-el-shadow: none;
+}
+
+.NavigationBar .nav-item[data-active="true"] {
+  border: 1px solid #ef944dff !important;
+}
+
+#TabsToolbar {
+  display: none !important;
+}
+#sidebar-panel-header {
+  display: none !important;
+}
+#sidebar-box {
+  padding-inline-start: 0px !important;
+}
+
+* {
+  border-radius: 0px !important;
+}

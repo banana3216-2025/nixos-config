@@ -40,6 +40,7 @@ in {
     ../../programs/hyprland.nix
     ../../programs/sober.nix
     ../../programs/zellij.nix
+    ../../programs/firefox.nix
 
     ../../shared/smb-share.nix
     ../../shared/plymouth-theme-nix-apple/theme.nix
@@ -325,6 +326,9 @@ in {
 
   custom-modules.launchers.wofi.enable = true;
   custom-modules.desktop.swww.enable = true;
+
+  custom-modules.desktop.firefox.enable = true;
+  custom-modules.desktop.firefox.targetUsers = ["${mainUser}" "root"];
 
   environment.variables = {
     EDITOR = "nvim";
