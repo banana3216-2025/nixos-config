@@ -39,6 +39,9 @@
     prismlauncher.url = "github:PrismLauncher/PrismLauncher";
     prismlauncher.inputs.nixpkgs.follows = "nixpkgs";
 
+    subtui.url = "github:MattiaPun/SubTUI";
+    subtui.inputs.nixpkgs.follows = "nixpkgs";
+
     wallpapers.url = "github:banana3216-2025/wallpapers";
     wallpapers.flake = false;
   };
@@ -58,6 +61,7 @@
     qml-go-lsp,
     nix-flatpak,
     prismlauncher,
+    subtui,
     wallpapers,
     ...
   } @ inputs: {

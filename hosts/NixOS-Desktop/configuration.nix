@@ -239,6 +239,8 @@ in {
     kicad
 
     inputs.nvf-config.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.subtui.packages.${pkgs.stdenv.hostPlatform.system}.default
+    mpv
     sddm-astronaut
   ];
 
