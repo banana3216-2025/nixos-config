@@ -345,6 +345,7 @@ in {
   custom-modules.desktop.hyprland = {
     enable = true;
     targetUsers = ["${mainUser}"];
+    allow-impure-lua = true;
   };
 
   custom-modules.tools.my-nas.enable = true;
