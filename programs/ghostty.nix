@@ -60,6 +60,10 @@ in {
       xdg.configFile."ghostty/config".text = ''
         background-opacity = ${cfg.transparency}
 
+        # Make new windows open in home directory
+        working-directory = home
+        window-inherit-working-directory = false
+
         # Window Behavior
         confirm-close-surface = false
 
