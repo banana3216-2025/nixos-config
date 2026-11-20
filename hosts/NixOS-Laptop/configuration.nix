@@ -102,7 +102,7 @@ in {
   users.users.${mainUser} = {
     isNormalUser = true;
     description = "user";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "lpadmin"];
   };
 
   programs.git = {
@@ -148,19 +148,7 @@ in {
     nerd-fonts.jetbrains-mono
   ];
 
-  services.printing = {
-    enable = true;
-    drivers = with pkgs; [
-      gutenprint
-      epson-escpr2
-    ];
-  };
-
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
-  };
+  custom-modules.desktop.printing.enable = true;
 
   programs.helium.enable = true;
 

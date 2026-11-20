@@ -200,7 +200,7 @@ in {
   users.users.${mainUser} = {
     isNormalUser = true;
     description = "user";
-    extraGroups = ["networkmanager" "wheel" "uinput" "cdrom" "disk"];
+    extraGroups = ["networkmanager" "wheel" "uinput" "cdrom" "disk" "lpadmin"];
   };
 
   programs.git = {
