@@ -221,7 +221,7 @@ in {
     git
     gh
     fzf
-    eza
+    lsd
     fastfetch
     btop
     vim
@@ -238,6 +238,7 @@ in {
     gimp
     davinci-resolve
     kicad
+    tetrio-desktop
 
     inputs.nvf-config.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.subtui.packages.${pkgs.stdenv.hostPlatform.system}.default
@@ -313,7 +314,7 @@ in {
   custom-modules.shell.zsh.enable = true;
   custom-modules.shell.zsh.targetUsers = ["${mainUser}" "root"];
   custom-modules.shell.zsh.aliases = {
-    ls = "eza -lha --icons";
+    ls = "lsd -al --icon always --size short";
     clear-history = "/etc/nixos/shared/clear_history.sh";
     cat = "bat";
   };
@@ -349,6 +350,7 @@ in {
   };
 
   custom-modules.tools.my-nas.enable = true;
+  custom-modules.desktop.printing.enable = true;
 
   programs.driftwm.enable = true; # Testing Out DriftWM
 
