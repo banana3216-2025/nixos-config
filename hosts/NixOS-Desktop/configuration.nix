@@ -41,6 +41,7 @@ in {
     ../../programs/sober.nix
     ../../programs/zellij.nix
     ../../programs/firefox.nix
+    ../../programs/printing.nix
 
     ../../shared/smb-share.nix
     ../../shared/plymouth-theme-nix-apple/theme.nix
